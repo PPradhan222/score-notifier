@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_09_065830) do
+ActiveRecord::Schema.define(version: 2021_03_09_154850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_065830) do
     t.string "venue"
     t.datetime "date_time"
     t.string "status"
-    t.string "web_match_id"
+    t.string "web_match_url"
     t.string "result"
     t.string "toss"
     t.datetime "created_at", precision: 6, null: false

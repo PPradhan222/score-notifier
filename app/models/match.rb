@@ -4,4 +4,6 @@ class Match < ApplicationRecord
   has_many :match_teams, dependent: :destroy
   # exactly 2 match_teams & teams
   has_many :teams, through: :match_teams
+
+  validates :web_match_url, uniqueness: :true
 end

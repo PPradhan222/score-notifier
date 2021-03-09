@@ -1,0 +1,37 @@
+<h1>Matches#index</h1>
+<table style="width:100%">
+  <thead>
+    <th>Series</th>
+    <th>Match</th>
+    <th>Date & Time</th>
+    <th>Venue</th>
+  </thead>
+  <tbody>
+    <% @matches.each do |match|%>
+      <tr>
+        <td><%= match.series_name %></td>
+        <td><%= match.name %></td>
+        <td><%= match.date_time.to_s %></td>
+        <td><%= match.venue %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
