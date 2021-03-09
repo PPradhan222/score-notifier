@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  runs_scored: 1
+  balls_faced: 1
+  fours: 1
+  sixes: 1
+  strike_rate: 9.99
+  wicket_status: MyString
+  inning: one
+  player: one
+
+two:
+  runs_scored: 1
+  balls_faced: 1
+  fours: 1
+  sixes: 1
+  strike_rate: 9.99
+  wicket_status: MyString
+  inning: two
+  player: two

@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  runs_conceded: 1
+  balls_bowled: 1
+  wickets_taken: 1
+  maiden_overs: 1
+  economy_rate: 9.99
+  overs: 9.99
+  inning: one
+  player: one
+
+two:
+  runs_conceded: 1
+  balls_bowled: 1
+  wickets_taken: 1
+  maiden_overs: 1
+  economy_rate: 9.99
+  overs: 9.99
+  inning: two
+  player: two

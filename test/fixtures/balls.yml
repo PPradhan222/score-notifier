@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ball_number: 1
+  over_number: 1
+  ball_type: MyString
+  run: 1
+  run_type: MyString
+  wicket: false
+  wicket_type: MyString
+  inning: one
+
+two:
+  ball_number: 1
+  over_number: 1
+  ball_type: MyString
+  run: 1
+  run_type: MyString
+  wicket: false
+  wicket_type: MyString
+  inning: two

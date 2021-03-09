@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  series_name: MyString
+  format: MyString
+  level: MyString
+  venue: MyString
+  date_time: 2021-03-08 21:54:25
+  status: MyString
+  web_match_id: MyString
+  result: MyString
+  toss: MyString
+
+two:
+  name: MyString
+  series_name: MyString
+  format: MyString
+  level: MyString
+  venue: MyString
+  date_time: 2021-03-08 21:54:25
+  status: MyString
+  web_match_id: MyString
+  result: MyString
+  toss: MyString
