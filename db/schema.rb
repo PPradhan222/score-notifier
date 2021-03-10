@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_065929) do
+ActiveRecord::Schema.define(version: 2021_03_10_072358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,18 @@ ActiveRecord::Schema.define(version: 2021_03_10_065929) do
     t.string "web_profile_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "batting_style"
+    t.string "bowling_style"
+  end
+
+  create_table "team_squad_members", force: :cascade do |t|
+    t.string "status"
+    t.bigint "player_id", null: false
+    t.bigint "team_squad_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["player_id"], name: "index_team_squad_members_on_player_id"
+    t.index ["team_squad_id"], name: "index_team_squad_members_on_team_squad_id"
   end
 
   create_table "team_squads", force: :cascade do |t|
@@ -126,6 +138,8 @@ ActiveRecord::Schema.define(version: 2021_03_10_065929) do
   add_foreign_key "bowling_player_innings", "innings"
   add_foreign_key "bowling_player_innings", "players"
   add_foreign_key "innings", "matches"
+  add_foreign_key "team_squad_members", "players"
+  add_foreign_key "team_squad_members", "team_squads"
   add_foreign_key "team_squads", "matches"
   add_foreign_key "team_squads", "teams"
 end
