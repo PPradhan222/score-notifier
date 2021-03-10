@@ -30,7 +30,7 @@ module Spiders
 
     def team_data(team_node, level)
       team = {}
-      team[:name] = team_node.xpath('h2/a').text
+      team[:name] = team_node.xpath('h2/a').text.strip.downcase
       team[:web_team_id] = team_node.xpath('h2/a/@href').text
       team[:level] = level
 

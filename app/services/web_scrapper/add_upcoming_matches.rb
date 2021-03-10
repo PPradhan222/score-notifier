@@ -14,6 +14,7 @@ module WebScrapper
         match[:status] = 'upcoming'
         teams = teams(match[:name])
         create_matches(match,teams.first, teams.second)
+        # update matches to destroy matches which has moved to live or completed
       end
     end
 
@@ -27,8 +28,8 @@ module WebScrapper
 
     def teams(match_name)
       teams = match_name.split(",").first.split("vs")
-      first_team = teams.first.strip
-      second_team = teams.second.strip
+      first_team = teams.first.strip.downcase
+      second_team = teams.second.strip.downcase
       first_team = Team.find_by(name: first_team)
       second_team = Team.find_by(name: second_team)
 

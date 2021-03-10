@@ -7,7 +7,7 @@
   <tbody>
     <% @teams.each do |team|%>
       <tr>
-        <td><%= team.name %></td>
+        <td><%= team.name.titleize %></td>
         <td><%= team.level.humanize %></td>
       </tr>
     <% end %>
