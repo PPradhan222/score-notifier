@@ -1,20 +1,20 @@
 <h1>Matches#index</h1>
 <table style="width:100%">
   <thead>
-    <th>Series</th>
-    <th>Match</th>
-    <th>Date & Time</th>
-    <th>Venue</th>
-    <th>Math Info</th>
+    <th>Teams</th>
+    <th>Players</th>
   </thead>
   <tbody>
-    <% @matches.each do |match|%>
+    <% @match.team_squads.each do |team_squad| %>
       <tr>
-        <td><%= match.series_name %></td>
-        <td><%= match.name %></td>
-        <td><%= match.date_time.to_s %></td>
-        <td><%= match.venue %></td>
-        <td><%= link_to 'Info', match_path(match) %></td>
+        <td><%= team_squad.team.name.titleize %></td>
+        <td>
+          <ul>
+            <% team_squad.players.each do |player| %>
+              <li><%= player.web_profile_id.split("/").last.titleize %></li>
+            <% end %>
+          </ul>
+        </td>
       </tr>
     <% end %>
   </tbody>

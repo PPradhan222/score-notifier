@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_072358) do
+ActiveRecord::Schema.define(version: 2021_03_10_175805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 2021_03_10_072358) do
     t.string "toss"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "web_match_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -101,6 +102,7 @@ ActiveRecord::Schema.define(version: 2021_03_10_072358) do
     t.bigint "team_squad_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["player_id", "team_squad_id"], name: "index_team_squad_members_on_player_id_and_team_squad_id", unique: true
     t.index ["player_id"], name: "index_team_squad_members_on_player_id"
     t.index ["team_squad_id"], name: "index_team_squad_members_on_team_squad_id"
   end

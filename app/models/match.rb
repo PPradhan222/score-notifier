@@ -6,5 +6,5 @@ class Match < ApplicationRecord
   has_many :teams, through: :team_squads
   has_many :squad_members, through: :team_squads, source: :team_squad_members
 
-  validates :web_match_url, uniqueness: true
+  validates :web_match_id, uniqueness: true
 end

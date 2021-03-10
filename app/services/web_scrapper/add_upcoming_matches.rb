@@ -11,6 +11,7 @@ module WebScrapper
       matches.each do |match|
         match[:format] = match_format(match[:name])
         match[:web_match_url] = web_match_url(match[:web_match_url])
+        match[:web_match_id] = web_match_id(match[:web_match_url])
         match[:status] = 'upcoming'
         teams = teams(match[:name])
         create_matches(match,teams.first, teams.second)
@@ -46,6 +47,10 @@ module WebScrapper
 
     def web_match_url(url_string)
       url_string.split("/").last(2).join("/")
+    end
+
+    def web_match_id(url_string)
+      url_string.split("/").first
     end
   end
 end

@@ -24,4 +24,11 @@ class ScoresController < ApplicationController
 
     redirect_to matches_path
   end
+
+  def scrape_team_squad_members
+    @matches = Match.all
+    WebScrapper::ScrapeUpcomingMatchesTeamSquad.new(@matches).call
+
+    redirect_to matches_path
+  end
 end
