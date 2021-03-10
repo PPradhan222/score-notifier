@@ -21,8 +21,8 @@ module WebScrapper
     def create_matches(match, first_team, second_team)
       ActiveRecord::Base.transaction do
         current_match = Match.find_or_create_by(match)
-        MatchTeam.find_or_create_by(match_id: current_match.id, team_id: first_team.id) if first_team
-        MatchTeam.find_or_create_by(match_id: current_match.id, team_id: second_team.id) if second_team
+        TeamSquad.find_or_create_by(match_id: current_match.id, team_id: first_team.id) if first_team
+        TeamSquad.find_or_create_by(match_id: current_match.id, team_id: second_team.id) if second_team
       end
     end
 
