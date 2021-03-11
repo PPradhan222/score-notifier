@@ -6,6 +6,8 @@
     <th>Date & Time</th>
     <th>Venue</th>
     <th>Math Info</th>
+    <th>Status</th>
+    <th>Actions</th>
   </thead>
   <tbody>
     <% @matches.each do |match|%>
@@ -15,6 +17,8 @@
         <td><%= match.date_time.to_s %></td>
         <td><%= match.venue %></td>
         <td><%= link_to 'Info', match_path(match) %></td>
+        <td><%= match.status.titleize %></td>
+        <td><%= link_to 'Initialize Scorecard', initialize_scorecard_match_path(match)  %></td>
       </tr>
     <% end %>
   </tbody>

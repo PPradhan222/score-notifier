@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   end
 
   resources :teams, only: :index
-  resources :matches, only: [:index, :show]
+  resources :matches, only: [:index, :show] do
+    member do
+      get :initialize_scorecard
+    end
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

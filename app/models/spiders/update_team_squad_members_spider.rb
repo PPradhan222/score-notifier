@@ -1,6 +1,6 @@
 module Spiders
   class UpdateTeamSquadMembersSpider < ApplicationSpider
-    @name = "update_team_squad_members_spider.rb"
+    @name = "update_team_squad_members_spider"
     @engine = :mechanize
     @start_urls = []
     @config = {}

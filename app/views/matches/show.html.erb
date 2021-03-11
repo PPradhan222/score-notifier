@@ -1,5 +1,6 @@
 <h1>Matches#index</h1>
 <table style="width:100%">
+  <h4>Toss: <%= @match.toss %></h4>
   <thead>
     <th>Teams</th>
     <th>Players</th>
@@ -10,8 +11,8 @@
         <td><%= team_squad.team.name.titleize %></td>
         <td>
           <ul>
-            <% team_squad.players.each do |player| %>
-              <li><%= player.web_profile_id.split("/").last.titleize %></li>
+            <% team_squad.team_squad_members.each do |squad_member| %>
+              <li><%= squad_member.player.web_profile_id.split("/").last.titleize %>(<%= squad_member.status %>)</li>
             <% end %>
           </ul>
         </td>
