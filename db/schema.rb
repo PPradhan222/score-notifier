@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_175805) do
+ActiveRecord::Schema.define(version: 2021_03_11_081001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,17 +73,17 @@ ActiveRecord::Schema.define(version: 2021_03_10_175805) do
   create_table "matches", force: :cascade do |t|
     t.string "name"
     t.string "series_name"
-    t.string "format"
     t.string "level"
     t.string "venue"
     t.datetime "date_time"
-    t.string "status"
     t.string "web_match_url"
     t.string "result"
     t.string "toss"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "web_match_id"
+    t.integer "status"
+    t.string "format"
   end
 
   create_table "players", force: :cascade do |t|

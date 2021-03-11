@@ -20,7 +20,8 @@ module WebScrapper
     def update_matches
       matches.each do |match|
         # will write code of status live or recent later
-        match.update(status: 'other') if match.date_time.before?(Time.now)
+        match.live! if match.date_time.before?(Time.now)
+        match.live! if (1..5).include? match.day
       end
     end
   end
