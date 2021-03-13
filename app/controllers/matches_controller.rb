@@ -22,6 +22,12 @@ class MatchesController < ApplicationController
     redirect_to matches_path
   end
 
+  def update_status
+    url = "https://www.cricbuzz.com/cricket-match/live-scores/recent-matches"
+    Spiders::RecentMatches.process(url)
+    redirect_to matches_path
+  end
+
   private
 
   def load_match
