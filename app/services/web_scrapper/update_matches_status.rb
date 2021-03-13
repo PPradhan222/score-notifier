@@ -14,15 +14,13 @@ module WebScrapper
     private
 
     def update_to_recent
-      not_recent_matches = Match.not_recent
-      not_recent_matches.each do |match|
+      Match.not_recent.each do |match|
         match.recent! if recent_match_ids.include? match.web_match_id
       end
     end
 
     def update_to_live
-      not_recent_matches = Match.not_recent
-      not_recent_matches.each do |match|
+      Match.upcoming.each do |match|
         match.live! if match.date_time.before?(Time.now)
       end
     end
