@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :matches, only: [:index, :show] do
     member do
       get :initialize_scorecard
+      get :update_scorecard
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

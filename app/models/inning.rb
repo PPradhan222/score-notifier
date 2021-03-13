@@ -6,5 +6,7 @@ class Inning < ApplicationRecord
   has_many :bowlers, through: :bowling_player_innings, source: :player
   has_many :balls, dependent: :destroy
 
+  validates :match_id, uniqueness: { scope: :inning_number }
+
   delegate :teams, to: :match
 end

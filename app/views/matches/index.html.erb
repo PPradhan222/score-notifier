@@ -18,7 +18,12 @@
         <td><%= match.venue %></td>
         <td><%= link_to 'Info', match_path(match) %></td>
         <td><%= match.status&.titleize %></td>
-        <td><%= link_to 'Initialize Scorecard', initialize_scorecard_match_path(match)  %></td>
+        <td>
+          <ul>
+            <li><%= link_to 'Initialize Scorecard', initialize_scorecard_match_path(match)  %></li>
+            <li><%= link_to 'Update Scorecard', update_scorecard_match_path(match)  %></li>
+          </ul>
+        </td>
       </tr>
     <% end %>
   </tbody>

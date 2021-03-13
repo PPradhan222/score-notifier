@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_11_081001) do
+ActiveRecord::Schema.define(version: 2021_03_11_200652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,12 +30,12 @@ ActiveRecord::Schema.define(version: 2021_03_11_081001) do
   end
 
   create_table "batting_player_innings", force: :cascade do |t|
-    t.integer "runs_scored"
-    t.integer "balls_faced"
-    t.integer "fours"
-    t.integer "sixes"
-    t.decimal "strike_rate"
-    t.string "wicket_status"
+    t.integer "runs_scored", default: 0
+    t.integer "balls_faced", default: 0
+    t.integer "fours", default: 0
+    t.integer "sixes", default: 0
+    t.decimal "strike_rate", default: "0.0"
+    t.string "wicket_status", default: "not_batted"
     t.bigint "inning_id", null: false
     t.bigint "player_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -45,12 +45,12 @@ ActiveRecord::Schema.define(version: 2021_03_11_081001) do
   end
 
   create_table "bowling_player_innings", force: :cascade do |t|
-    t.integer "runs_conceded"
+    t.integer "runs_conceded", default: 0
     t.integer "balls_bowled"
-    t.integer "wickets_taken"
-    t.integer "maiden_overs"
-    t.decimal "economy_rate"
-    t.decimal "overs"
+    t.integer "wickets_taken", default: 0
+    t.integer "maiden_overs", default: 0
+    t.decimal "economy_rate", default: "0.0"
+    t.decimal "overs", default: "0.0"
     t.bigint "inning_id", null: false
     t.bigint "player_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -67,6 +67,9 @@ ActiveRecord::Schema.define(version: 2021_03_11_081001) do
     t.bigint "match_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "inning_number"
+    t.decimal "overs"
+    t.index ["match_id", "inning_number"], name: "index_innings_on_match_id_and_inning_number", unique: true
     t.index ["match_id"], name: "index_innings_on_match_id"
   end
 

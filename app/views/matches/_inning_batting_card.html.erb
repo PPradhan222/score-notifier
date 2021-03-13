@@ -1,0 +1,24 @@
+<table style="width:100%">
+  <thead>
+    <th>Batsman</th>
+    <th>Status</th>
+    <th>R</th>
+    <th>B</th>
+    <th>4s</th>
+    <th>6s</th>
+    <th>SR</th>
+  </thead>
+  <tbody>
+    <% inning.batting_player_innings.each do |batsman| %>
+      <tr>
+        <td><%= batsman.player.web_profile_id.split("/").last.titleize %></td>
+        <td><%= batsman.wicket_status %></td>
+        <td><%= batsman.runs_scored %></td>
+        <td><%= batsman.balls_faced %></td>
+        <td><%= batsman.fours %></td>
+        <td><%=batsman.sixes %></td>
+        <td><%= batsman.strike_rate %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
