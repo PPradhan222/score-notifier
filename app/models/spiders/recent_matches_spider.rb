@@ -1,6 +1,6 @@
 module Spiders
-  class RecentMatches < ApplicationSpider
-    @name = "recent_matches"
+  class RecentMatchesSpider < ApplicationSpider
+    @name = "recent_matches_spider"
     @start_urls = []
     @config = {}
     @@web_match_ids = []

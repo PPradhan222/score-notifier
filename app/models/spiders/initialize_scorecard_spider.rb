@@ -1,6 +1,6 @@
 module Spiders
-  class InitializeScorecard < ApplicationSpider
-    @name = "initialize_scorecard"
+  class InitializeScorecardSpider < ApplicationSpider
+    @name = "initialize_scorecard_spider"
     @start_urls = []
     @config = {}
     @@result = { toss: nil, teams: [] }

@@ -1,6 +1,6 @@
 module Spiders
-  class UpdateScorecard < ApplicationSpider
-    @name = "update_scorecard"
+  class UpdateScorecardSpider < ApplicationSpider
+    @name = "update_scorecard_spider"
     @start_urls = []
     @config = {}
     @@result = { match: nil, innings: [] }
