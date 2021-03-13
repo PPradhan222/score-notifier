@@ -21,14 +21,13 @@ class ScoresController < ApplicationController
   def scrape_upcoming_matches
     url = "https://www.cricbuzz.com/cricket-schedule/upcoming-series/international"
     result = Spiders::UpcomingMatchesSpider.process(url)
-
     redirect_to matches_path
   end
 
+# this method takes a lot of time to perform
   def scrape_team_squad_members
     @matches = Match.all
     WebScrapper::ScrapeUpcomingMatchesTeamSquad.new(@matches).call
-
     redirect_to matches_path
   end
 end

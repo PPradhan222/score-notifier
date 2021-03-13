@@ -16,6 +16,8 @@ module WebScrapper
       end
     end
 
+    private
+
     def find_team(match, team_profile)
       match.teams.find_by(name: team_profile[:name])
     end

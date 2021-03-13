@@ -10,10 +10,12 @@ module WebScrapper
     def call
       squads.each do |squad|
         team = match_team(squad[:name])
-        team_squad = match.team_squads.find_by(team_id: team.id) if team
+        team_squad = match&.team_squads&.find_by(team_id: team.id) if team
         create_squad_members(squad[:profiles_tab], team_squad.id) if team_squad
       end
     end
+
+    private
 
     def match_team(name)
       match.teams.find_by(name: name)

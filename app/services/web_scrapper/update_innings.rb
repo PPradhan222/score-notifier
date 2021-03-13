@@ -3,7 +3,7 @@ module WebScrapper
     attr_reader :innings
 
     def initialize(innings, match)
-      create_innings(innings, match)
+      create_or_update_innings(innings, match)
       @innings = innings
     end
 
@@ -11,28 +11,29 @@ module WebScrapper
       innings.each do |inning|
         inning[:batting_card].each do |batsman|
           ActiveRecord::Base.transaction do
-            profile_url = batsman[:profile_url]
-            player = Player.find_or_create_by(web_profile_id: profile_url.split("/")[-2])
-            batsman.delete(:profile_url)
-            batsman[:player_id] = player.id
-            inning[:object].batting_player_innings.find_or_create_by(batsman)
+            player = Player.find_or_create_by(web_profile_id: batsman[:profile_url].split("/")[-2])
+            profile_url = batsman.delete(:profile_url)
+            player.update(web_profile_url: profile_url) unless player.web_profile_url
+            inning[:object].batting_player_innings.find_or_create_by(player_id: player.id)&.update(batsman)
           end
         end
         inning[:bowling_card].each do |bowler|
           ActiveRecord::Base.transaction do
-            profile_url = bowler[:profile_url]
-            player = Player.find_or_create_by(web_profile_id: profile_url.split("/")[-2])
-            bowler.delete(:profile_url)
-            bowler[:player_id] = player.id
-            inning[:object].bowling_player_innings.find_or_create_by(bowler)
+            player = Player.find_or_create_by(web_profile_id: bowler[:profile_url].split("/")[-2])
+            profile_url = bowler.delete(:profile_url)
+            player.update(web_profile_url: profile_url) unless player.web_profile_url
+            inning[:object].bowling_player_innings.find_or_create_by(player_id: player.id)&.update(bowler)
           end
         end
       end
     end
 
-    def create_innings(innings, match)
+    private
+
+    def create_or_update_innings(innings, match)
       innings.each do |inning|
-        inning[:object] = match.innings.find_or_create_by(inning_number: inning[:inning_number], name: inning[:name], runs: inning[:runs], wickets: inning[:wickets], overs: inning[:overs])
+        inning[:object] = match.innings.find_or_create_by(inning_number: inning[:inning_number])
+        inning[:object].update(name: inning[:name], runs: inning[:runs], wickets: inning[:wickets], overs: inning[:overs])
       end
     end
   end

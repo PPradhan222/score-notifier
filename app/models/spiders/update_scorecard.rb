@@ -24,6 +24,8 @@ module Spiders
       end
     end
 
+    private
+
     def fill_inning(inning_tab)
       inning = {}
       inning[:inning_number] = inning_tab.xpath('./@id').text.split("_").last.to_i

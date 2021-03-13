@@ -15,15 +15,18 @@ module WebScrapper
         match[:status] = 'upcoming'
         teams = teams(match[:name])
         create_matches(match,teams.first, teams.second)
-        # update matches which has moved to live or completed
+        # update matches which has moved to live or completed ?
+        # will add time schedulers for upcoming matches from here
       end
     end
+
+    private
 
     def create_matches(match, first_team, second_team)
       ActiveRecord::Base.transaction do
         current_match = Match.find_or_create_by(match)
-        TeamSquad.find_or_create_by(match_id: current_match.id, team_id: first_team.id) if first_team
-        TeamSquad.find_or_create_by(match_id: current_match.id, team_id: second_team.id) if second_team
+        TeamSquad.find_or_create_by(match_id: current_match&.id, team_id: first_team.id) if first_team
+        TeamSquad.find_or_create_by(match_id: current_match&.id, team_id: second_team.id) if second_team
       end
     end
 
