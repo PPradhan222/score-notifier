@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_11_200652) do
+ActiveRecord::Schema.define(version: 2021_03_13_090804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 2021_03_11_200652) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "batting_style"
     t.string "bowling_style"
+    t.string "web_profile_url"
   end
 
   create_table "team_squad_members", force: :cascade do |t|

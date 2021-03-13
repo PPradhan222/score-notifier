@@ -12,7 +12,7 @@
         <td>
           <ul>
             <% team_squad.team_squad_members.each do |squad_member| %>
-              <li><%= squad_member.player.web_profile_id.split("/").last.titleize %>(<%= squad_member.status %>)</li>
+              <li><%= squad_member.player.web_profile_url.split("/").last.titleize %>(<%= squad_member.status %>)</li>
             <% end %>
           </ul>
         </td>

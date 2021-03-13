@@ -11,7 +11,8 @@ module WebScrapper
       innings.each do |inning|
         inning[:batting_card].each do |batsman|
           ActiveRecord::Base.transaction do
-            player = Player.find_or_create_by(web_profile_id: batsman[:profile_url])
+            profile_url = batsman[:profile_url]
+            player = Player.find_or_create_by(web_profile_id: profile_url.split("/")[-2])
             batsman.delete(:profile_url)
             batsman[:player_id] = player.id
             inning[:object].batting_player_innings.find_or_create_by(batsman)
@@ -19,7 +20,8 @@ module WebScrapper
         end
         inning[:bowling_card].each do |bowler|
           ActiveRecord::Base.transaction do
-            player = Player.find_or_create_by(web_profile_id: bowler[:profile_url])
+            profile_url = bowler[:profile_url]
+            player = Player.find_or_create_by(web_profile_id: profile_url.split("/")[-2])
             bowler.delete(:profile_url)
             bowler[:player_id] = player.id
             inning[:object].bowling_player_innings.find_or_create_by(bowler)

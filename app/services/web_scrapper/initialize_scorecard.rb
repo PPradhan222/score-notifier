@@ -24,11 +24,11 @@ module WebScrapper
       team_squad = match.team_squads.find_by(team_id: team.id) if team
       squad_members = team_squad&.team_squad_members
       team_profile[:profiles][:playing].each do |url|
-        player = team_squad&.players.find_by(web_profile_id: url.text)
+        player = team_squad&.players.find_by(web_profile_id: url.text.split("/")[-2])
         team_squad&.team_squad_members.find_by(player_id: player.id)&.update(status: 'playing')
       end
       team_profile[:profiles][:bench].each do |url|
-        player = team_squad&.players.find_by(web_profile_id: url.text)
+        player = team_squad&.players.find_by(web_profile_id: url.text.split("/")[-2])
         team_squad&.team_squad_members.find_by(player_id: player.id)&.update(status: 'bench')
       end
     end

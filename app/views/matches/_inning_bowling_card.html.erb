@@ -10,7 +10,7 @@
   <tbody>
     <% inning.bowling_player_innings.each do |bowler| %>
       <tr>
-        <td><%= bowler.player.web_profile_id.split("/").last.titleize %></td>
+        <td><%= bowler.player.web_profile_url.split("/").last.titleize %></td>
         <td><%= bowler.overs %></td>
         <td><%= bowler.maiden_overs %></td>
         <td><%= bowler.runs_conceded %></td>
