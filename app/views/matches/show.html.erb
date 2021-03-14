@@ -1,5 +1,5 @@
 <h1>ScoreCard</h1>
-<% @innings.each do |inning| %>
+<% @innings.order(:inning_number).each do |inning| %>
   <div>
     <h3>Inning <%= inning.inning_number %> </h3>
     <p><%= inning.name %></p>

@@ -60,8 +60,11 @@ module Spiders
 
     def batting_info(batsmen_tab, did_not_bat)
       batting_card = []
+      batting_order =  0
       batsmen_tab.each do |batsman_tab|
         batsman = {}
+        batting_order += 1
+        batsman[:batting_order] = batting_order
         batsman[:profile_url] = batsman_tab.xpath(".//a[contains(@href, '/profile')]/@href").text.strip
         batsman_desc = batsman_tab.text.strip.split(" ")
         batsman[:strike_rate] = batsman_desc.pop.to_f

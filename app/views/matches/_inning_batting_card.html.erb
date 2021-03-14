@@ -9,7 +9,7 @@
     <th>SR</th>
   </thead>
   <tbody>
-    <% inning.batting_player_innings.each do |batsman| %>
+    <% inning.batting_player_innings.order(:batting_order).each do |batsman| %>
       <tr>
         <td><%= batsman.player.web_profile_url.split("/").last.titleize %></td>
         <td><%= batsman.wicket_status %></td>

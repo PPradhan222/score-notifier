@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_13_090804) do
+ActiveRecord::Schema.define(version: 2021_03_14_052223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2021_03_13_090804) do
     t.bigint "player_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "batting_order", default: 12
     t.index ["inning_id"], name: "index_batting_player_innings_on_inning_id"
     t.index ["player_id"], name: "index_batting_player_innings_on_player_id"
   end
