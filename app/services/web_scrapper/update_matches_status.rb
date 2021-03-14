@@ -1,9 +1,9 @@
 module WebScrapper
   class UpdateMatchesStatus
-    attr_reader :recent_match_ids
+    attr_reader :recent_matches
 
-    def initialize(match_ids)
-      @recent_match_ids = match_ids
+    def initialize(recent_matches)
+      @recent_matches = recent_matches
     end
 
     def call
@@ -15,7 +15,10 @@ module WebScrapper
 
     def update_to_recent
       Match.not_recent.each do |match|
-        match.recent! if recent_match_ids.include? match.web_match_id
+        if recent_matches.keys.include? match.web_match_id
+          match.recent!
+          match.update(result: recent_matches[match.web_match_id])
+        end
       end
     end
 

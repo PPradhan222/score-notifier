@@ -3,7 +3,7 @@ module Spiders
     @name = "recent_matches_spider"
     @start_urls = []
     @config = {}
-    @@web_match_ids = []
+    @@recent_matches = {}
 
     def self.process(url)
       @start_urls << url
@@ -11,23 +11,23 @@ module Spiders
     end
 
     def self.close_spider
-      WebScrapper::UpdateMatchesStatus.new(@@web_match_ids).call if completed?
+      WebScrapper::UpdateMatchesStatus.new(@@recent_matches).call if completed?
     end
 
     def parse(response, url:, data: {})
-      recent_international_matches_urls = []
-      recent_international_matches_urls = response.xpath(".//div[@ng-show=\"active_match_type == 'international-tab'\"]/div[contains(@class, \"cb-mtch-lst\")]//h3//@href")
-      @@web_match_ids = match_web_ids(recent_international_matches_urls)
+      recent_matches = response.xpath(".//div[@ng-show=\"active_match_type == 'international-tab'\"]/div[contains(@class, \"cb-mtch-lst\")]")
+      @@recent_matches = recent_matches_ids_and_results(recent_matches)
     end
 
     private
 
-    def match_web_ids(match_urls)
-      web_ids = []
-      match_urls.each do |match_url|
-        web_ids << match_url.text.strip.split("/")[-2]
+    def recent_matches_ids_and_results(recent_matches)
+      matches = {}
+      recent_matches.each do |recent_match|
+       web_match_id = recent_match.xpath('.//h3//@href').text.strip.split("/")[-2]
+       matches[web_match_id] = recent_match.xpath('.//div[contains(@class, "cb-text-complete")]').text.strip
       end
-      web_ids
+      matches
     end
   end
 end
