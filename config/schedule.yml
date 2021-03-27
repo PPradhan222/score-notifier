@@ -1,0 +1,6 @@
+update_matches_status:
+  cron: "*/30 * * * *"
+  class: "UpdateMatchStatusWorker"
+  queue: default
+  args: ["https://www.cricbuzz.com/cricket-match/live-scores/recent-matches"]
+  description: "update matches status in every 30 minutes"

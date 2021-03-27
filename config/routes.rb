@@ -1,14 +1,15 @@
 Rails.application.routes.draw do
   root 'scores#index'
   require 'sidekiq/web'
+  require 'sidekiq/cron/web'
   mount Sidekiq::Web => '/sidekiq'
 
   resources :scores, only: [:index, :show] do
     collection do
       get :scrape
-      get :scrape_team_data
+      # get :scrape_team_data
       get :scrape_upcoming_matches
-      get :scrape_team_squad_members
+      # get :scrape_team_squad_members
     end
   end
 
