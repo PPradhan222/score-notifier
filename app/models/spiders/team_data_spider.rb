@@ -3,29 +3,23 @@ module Spiders
     @name = "team_data_spider"
     @start_urls = []
     @config = {}
-    @@result = []
 
     def self.process(url)
-      start_urls << url
-      self.crawl!
-    end
-
-    def self.close_spider
-      if completed?
-        Team.create(@@result)
-      end
+      teams = self.parse!(:parse, url: url)
+      Team.create(teams) if teams
     end
 
     def parse(response, url:, data: {})
-      @@result = []
+      result = []
       response.css('div.cb-team-item').each do |international_team|
-        @@result << team_data(international_team, 'international')
+        result << team_data(international_team, 'international')
       end
       
       ['league', 'domestic', 'women'].each do |level|
-        @@result += request_to(:parse_teams, url: (url + "/" + level), data: data.merge(level: level))
+        result += request_to(:parse_teams, url: (url + "/" + level), data: data.merge(level: level))
       end
       # use in_parallel instead of request_to for different urls
+      result
     end
 
     def team_data(team_node, level)
