@@ -3,20 +3,15 @@ module Spiders
     @name = "recent_matches_spider"
     @start_urls = []
     @config = {}
-    @@recent_matches = {}
 
     def self.process(url)
-      @start_urls << url
-      self.crawl!
-    end
-
-    def self.close_spider
-      WebScrapper::UpdateMatchesStatus.new(@@recent_matches).call if completed?
+      recent_matches = self.parse!(:parse, url: url)
+      WebScrapper::UpdateMatchesStatus.new(recent_matches).call if recent_matches
     end
 
     def parse(response, url:, data: {})
       recent_matches = response.xpath(".//div[@ng-show=\"active_match_type == 'international-tab'\"]/div[contains(@class, \"cb-mtch-lst\")]")
-      @@recent_matches = recent_matches_ids_and_results(recent_matches)
+      recent_matches_ids_and_results(recent_matches)
     end
 
     private
