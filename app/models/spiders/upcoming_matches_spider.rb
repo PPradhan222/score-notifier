@@ -3,27 +3,21 @@ module Spiders
     @name = "upcoming_matches_spider"
     @start_urls = []
     @config = {}
-    @@matches = []
 
     def self.process(url)
-      @start_urls << url
-      self.crawl!
-    end
-
-    def self.close_spider
-      if completed?
-        WebScrapper::AddUpcomingMatches.new(@@matches).call
-      end
+      matches = self.parse!(:parse, url: url)
+      WebScrapper::AddUpcomingMatches.new(matches).call if matches
     end
 
     def parse(response, url:, data: {})
-      @@matches = []
+      result = []
       response.css('div#international-list/div').first(7).each do |matches_by_date|
         date = matches_by_date.at_css('div').text
         matches_by_date.css('/div.cb-col').each do |match_node|
-          @@matches << match_data(match_node, date, 'international')
+          result << match_data(match_node, date, 'international')
         end
       end
+      result
     end
 
     def match_data(match_node, date, level)
