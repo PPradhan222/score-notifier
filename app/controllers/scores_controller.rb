@@ -14,20 +14,19 @@ class ScoresController < ApplicationController
 
   def scrape_team_data
     url = "https://www.cricbuzz.com/cricket-team"
-    Spiders::TeamDataSpider.process(url)
+    TeamDataWorker.perform_async(url)
     redirect_to teams_path
   end
 
   def scrape_upcoming_matches
     url = "https://www.cricbuzz.com/cricket-schedule/upcoming-series/international"
-    Spiders::UpcomingMatchesSpider.process(url)
+    UpcomingMatchesWorker.perform_async(url)
     redirect_to matches_path
   end
 
 # this method takes a lot of time to perform
   def scrape_team_squad_members
-    @matches = Match.all
-    WebScrapper::ScrapeUpcomingMatchesTeamSquad.new(@matches).call
+    TeamSquadMemberWorker.perform_async
     redirect_to matches_path
   end
 end

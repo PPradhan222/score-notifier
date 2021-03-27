@@ -12,19 +12,19 @@ class MatchesController < ApplicationController
 
   def initialize_scorecard
     url = "https://www.cricbuzz.com/cricket-match-facts/" + match.web_match_url
-    Spiders::InitializeScorecardSpider.process(url, match)
+    InitializeScorecardWorker.perform_async(url, match.id)
     redirect_to match ? match : matches_path
   end
 
   def update_scorecard
     url = "https://www.cricbuzz.com/live-cricket-scorecard/" + match.web_match_url
-    Spiders::UpdateScorecardSpider.process(url, match)
+    UpdateScorecardWorker.perform_async(url, match.id)
     redirect_to match ? match : matches_path
   end
 
   def update_status
     url = "https://www.cricbuzz.com/cricket-match/live-scores/recent-matches"
-    Spiders::RecentMatchesSpider.process(url)
+    UpdateMatchStatusWorker.perform_async(url)
     redirect_to matches_path
   end
 
