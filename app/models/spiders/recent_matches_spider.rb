@@ -24,7 +24,7 @@ module Spiders
     def recent_matches_ids_and_results(recent_matches)
       matches = {}
       recent_matches.each do |recent_match|
-       web_match_id = recent_match.xpath('.//h3//@href').text.strip.split("/")[-2]
+       web_match_id = recent_match.xpath('.//h3//@href').text.strip.split("/")&.dig(-2)
        matches[web_match_id] = recent_match.xpath('.//div[contains(@class, "cb-text-complete")]').text.strip
       end
       matches

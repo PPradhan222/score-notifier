@@ -9,15 +9,15 @@
     <th>SR</th>
   </thead>
   <tbody>
-    <% inning.batting_player_innings.order(:batting_order).each do |batsman| %>
+    <% inning&.batting_player_innings&.order(:batting_order)&.each do |batsman| %>
       <tr>
-        <td><%= batsman.player.web_profile_url.split("/").last.titleize %></td>
-        <td><%= batsman.wicket_status %></td>
-        <td><%= batsman.runs_scored %></td>
-        <td><%= batsman.balls_faced %></td>
-        <td><%= batsman.fours %></td>
-        <td><%=batsman.sixes %></td>
-        <td><%= batsman.strike_rate %></td>
+        <td><%= batsman&.player&.web_profile_url&.split("/")&.last&.titleize %></td>
+        <td><%= batsman&.wicket_status %></td>
+        <td><%= batsman&.runs_scored %></td>
+        <td><%= batsman&.balls_faced %></td>
+        <td><%= batsman&.fours %></td>
+        <td><%= batsman&.sixes %></td>
+        <td><%= batsman&.strike_rate %></td>
       </tr>
     <% end %>
   </tbody>

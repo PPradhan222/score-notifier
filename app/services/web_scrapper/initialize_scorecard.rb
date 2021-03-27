@@ -19,19 +19,21 @@ module WebScrapper
     private
 
     def find_team(match, team_profile)
-      match.teams.find_by(name: team_profile[:name])
+      match.teams&.find_by(name: team_profile[:name])
     end
 
     def update_team_squad_members(match, team, team_profile)
       team_squad = match.team_squads.find_by(team_id: team.id) if team
       squad_members = team_squad&.team_squad_members
       team_profile[:profiles][:playing].each do |url|
-        player = team_squad&.players.find_by(web_profile_id: url.text.split("/")[-2])
-        team_squad&.team_squad_members.find_by(player_id: player.id)&.update(status: 'playing')
+        player = team_squad&.players&.find_by(web_profile_id: url&.text&.split("/")&.dig(-2))
+        player&.update(web_profile_url: url) unless player&.web_profile_url
+        team_squad&.team_squad_members&.find_by(player_id: player&.id)&.update(status: 'playing')
       end
       team_profile[:profiles][:bench].each do |url|
-        player = team_squad&.players.find_by(web_profile_id: url.text.split("/")[-2])
-        team_squad&.team_squad_members.find_by(player_id: player.id)&.update(status: 'bench')
+        player = team_squad&.players&.find_by(web_profile_id: url&.text&.split("/")&.dig(-2))
+        player&.update(web_profile_url: url) unless player&.web_profile_url
+        team_squad&.team_squad_members&.find_by(player_id: player&.id)&.update(status: 'bench')
       end
     end
   end
