@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   root 'scores#index'
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
 
   resources :scores, only: [:index, :show] do
     collection do
