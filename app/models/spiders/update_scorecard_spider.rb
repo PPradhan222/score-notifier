@@ -3,26 +3,20 @@ module Spiders
     @name = "update_scorecard_spider"
     @start_urls = []
     @config = {}
-    @@result = { match: nil, innings: [], match_result: nil }
 
     def self.process(url, match)
-      @start_urls << url
-      @@result[:match] = match
-      self.crawl!
-    end
-
-    def self.close_spider
-      if completed?
-        WebScrapper::UpdateInnings.new(@@result[:innings], @@result[:match], @@result[:match_result]).call
-      end
+      scorecard = self.parse!(:parse, url: url)
+      WebScrapper::UpdateInnings.new(scorecard[:innings], match, scorecard[:match_result]).call
     end
 
     def parse(response, url:, data: {})
+      result = {innings: [], match_result: nil }
       inning_tabs = response.xpath('//div[starts-with(@id, "innings")]')
-      @@result[:match_result] = response.xpath('//div[contains(@class, "cb-scrcrd-status")]').text
+      result[:match_result] = response.xpath('//div[contains(@class, "cb-scrcrd-status")]').text
       inning_tabs.each do |inning_tab|
-        @@result[:innings] << fill_inning(inning_tab)
+        result[:innings] << fill_inning(inning_tab)
       end
+      result
     end
 
     private

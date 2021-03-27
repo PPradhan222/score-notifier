@@ -19,7 +19,7 @@ class MatchesController < ApplicationController
   def update_scorecard
     url = "https://www.cricbuzz.com/live-cricket-scorecard/" + match.web_match_url
     Spiders::UpdateScorecardSpider.process(url, match)
-    redirect_to matches_path
+    redirect_to match ? match : matches_path
   end
 
   def update_status
