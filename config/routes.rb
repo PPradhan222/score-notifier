@@ -7,9 +7,9 @@ Rails.application.routes.draw do
   resources :scores, only: [:index, :show] do
     collection do
       get :scrape
-      # get :scrape_team_data
+      get :scrape_team_data
       get :scrape_upcoming_matches
-      # get :scrape_team_squad_members
+      get :scrape_team_squad_members
     end
   end
 
