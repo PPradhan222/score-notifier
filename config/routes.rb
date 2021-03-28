@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     member do
       get :initialize_scorecard
       get :update_scorecard
+      get :live_score
     end
 
     collection do

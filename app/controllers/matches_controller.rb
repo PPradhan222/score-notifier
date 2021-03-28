@@ -1,5 +1,5 @@
 class MatchesController < ApplicationController
-  before_action :load_match, only: [:show, :initialize_scorecard, :update_scorecard]
+  before_action :load_match, only: [:show, :live_score, :initialize_scorecard, :update_scorecard]
   attr_reader :match
 
   def index
@@ -8,6 +8,10 @@ class MatchesController < ApplicationController
 
   def show
     @innings = @match.innings
+  end
+
+  def live_score
+    @match_data = JSON.parse($redis.get "match_#{@match.web_match_id}")
   end
 
   def initialize_scorecard

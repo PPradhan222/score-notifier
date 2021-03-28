@@ -6,7 +6,13 @@ module Spiders
 
     def self.process(url, match)
       scorecard = self.parse!(:parse, url: url)
-      WebScrapper::UpdateInnings.new(scorecard[:innings], match, scorecard[:match_result]).call
+      match_key = "match_#{match.web_match_id}"
+      if match.live?
+        $redis&.set match_key, scorecard&.to_json
+      else
+        $redis.del(match_key)
+        WebScrapper::UpdateInnings.new(scorecard[:innings], match, scorecard[:match_result]).call
+      end
     end
 
     def parse(response, url:, data: {})

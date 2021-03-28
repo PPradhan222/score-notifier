@@ -6,6 +6,7 @@
     <th>Date & Time</th>
     <th>Venue</th>
     <th>Math Info</th>
+    <th>Live Score</th>
     <th>Status</th>
     <th>Actions</th>
   </thead>
@@ -17,6 +18,7 @@
         <td><%= match.date_time.to_s %></td>
         <td><%= match.venue %></td>
         <td><%= link_to 'Info', match_path(match) %></td>
+        <td><%= link_to 'Live', live_score_match_path(match) if match.live? %></td>
         <td><%= match.status&.titleize %></td>
         <td>
           <ul>

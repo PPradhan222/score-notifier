@@ -1,0 +1,29 @@
+<h1>LiveScore</h1>
+<h4><%= @match.recent? ? 'Result:' : 'Status:' %></h4><p><%= @match_data["match_result"] %></p>
+<% @match_data["innings"].sort_by {|inning| inning["inning_number"]}.each do |inning| %>
+  <div>
+    <h3>Inning <%= inning["inning_number"] %> </h3>
+    <p><%= inning["name"] %></p>
+  </div>
+  <%= render partial: 'live_inning_batting_card', locals: { inning: inning } %>
+  <%= render partial: 'live_inning_bowling_card', locals: { inning: inning } %>
+<% end%>
+<%= render partial: 'info', locals: { match: @match }%>
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>

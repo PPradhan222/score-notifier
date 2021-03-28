@@ -205,6 +205,8 @@ GEM
       ffi (~> 1.0)
     rbcat (0.2.1)
     redis (4.2.5)
+    redis-namespace (1.8.0)
+      redis (>= 3.0.4)
     regexp_parser (2.1.1)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
@@ -287,6 +289,8 @@ DEPENDENCIES
   pry-rails
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
+  redis
+  redis-namespace
   sass-rails (>= 6)
   selenium-webdriver
   sidekiq
