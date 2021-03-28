@@ -21,3 +21,8 @@ update_team_squad_members:
   class: "TeamSquadMemberWorker"
   queue: default
   description: "update team squad members of matches in every 6 hours"
+update_live_scores:
+  cron: "*/2 * * * *"
+  class: "LiveScoreWorker"
+  queue: critical
+  description: "update live-scores of live matches in every 2 minutes"

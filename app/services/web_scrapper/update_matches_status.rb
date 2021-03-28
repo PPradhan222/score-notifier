@@ -24,7 +24,7 @@ module WebScrapper
 
     def update_to_live
       Match.upcoming.each do |match|
-        match.live! if match.date_time.before?(Time.now)
+        match.live! if match.date_time.before?(Time.now + 30.minutes)
       end
     end
   end
