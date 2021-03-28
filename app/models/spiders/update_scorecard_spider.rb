@@ -10,7 +10,7 @@ module Spiders
       if match.live?
         $redis&.set match_key, scorecard&.to_json
       else
-        $redis.del(match_key)
+        $redis&.del(match_key)
         WebScrapper::UpdateInnings.new(scorecard[:innings], match, scorecard[:match_result]).call
       end
     end
