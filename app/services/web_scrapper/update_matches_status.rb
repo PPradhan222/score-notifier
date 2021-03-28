@@ -18,6 +18,8 @@ module WebScrapper
         if recent_matches.keys.include? match.web_match_id
           match.recent!
           match.update(result: recent_matches[match.web_match_id])
+          url = "https://www.cricbuzz.com/live-cricket-scorecard/" + match.web_match_url
+          UpdateScorecardWorker.perform_async(url, match.id)
         end
       end
     end
