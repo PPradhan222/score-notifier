@@ -11,7 +11,12 @@ class MatchesController < ApplicationController
   end
 
   def live_score
-    @match_data = JSON.parse($redis.get "match_#{@match.web_match_id}")
+    match_key = "match_#{match.web_match_id}"
+    unless $redis.exists? match_key
+      redirect_to match
+      return
+    end
+    @match_data = JSON.parse($redis.get match_key)
   end
 
   def initialize_scorecard
