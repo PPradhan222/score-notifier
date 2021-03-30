@@ -34,6 +34,8 @@ gem 'sidekiq-cron'
 gem 'redis'
 gem 'redis-namespace'
 
+gem 'faker'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 

@@ -26,7 +26,7 @@ module WebScrapper
         ActiveRecord::Base.transaction do
           profile_url = profiles_url_tab.text.strip
           player = Player.find_or_create_by(web_profile_url: profile_url, web_profile_id: profile_url&.split("/")&.dig(-2))
-          member = TeamSquadMember.find_or_create_by(player_id: player.id, team_squad_id: team_squad_id)
+          member = TeamSquadMember.find_or_create_by(player_id: player.id, team_squad_id: team_squad_id, player_profile_id: profile_url&.split("/")&.dig(-2))
         end
       end
     end   

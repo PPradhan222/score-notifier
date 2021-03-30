@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Player Runs Notifiers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Team squad member</th>
+      <th>Runs</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @player_runs_notifiers.each do |player_runs_notifier| %>
+      <tr>
+        <td><%= player_runs_notifier.user_id %></td>
+        <td><%= player_runs_notifier.team_squad_member_id %></td>
+        <td><%= player_runs_notifier.runs %></td>
+        <td><%= link_to 'Show', player_runs_notifier %></td>
+        <td><%= link_to 'Edit', edit_player_runs_notifier_path(player_runs_notifier) %></td>
+        <td><%= link_to 'Destroy', player_runs_notifier, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Player Runs Notifier', new_player_runs_notifier_path %>

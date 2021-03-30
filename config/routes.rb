@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :player_runs_notifiers
   root 'scores#index'
   require 'sidekiq/web'
   require 'sidekiq/cron/web'

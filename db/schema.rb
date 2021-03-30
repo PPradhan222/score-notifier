@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_14_052223) do
+ActiveRecord::Schema.define(version: 2021_03_30_084745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,16 @@ ActiveRecord::Schema.define(version: 2021_03_14_052223) do
     t.string "format"
   end
 
+  create_table "player_runs_notifiers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "team_squad_member_id", null: false
+    t.integer "runs"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["team_squad_member_id"], name: "index_player_runs_notifiers_on_team_squad_member_id"
+    t.index ["user_id"], name: "index_player_runs_notifiers_on_user_id"
+  end
+
   create_table "players", force: :cascade do |t|
     t.string "name"
     t.string "role"
@@ -107,6 +117,7 @@ ActiveRecord::Schema.define(version: 2021_03_14_052223) do
     t.bigint "team_squad_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "player_profile_id"
     t.index ["player_id", "team_squad_id"], name: "index_team_squad_members_on_player_id_and_team_squad_id", unique: true
     t.index ["player_id"], name: "index_team_squad_members_on_player_id"
     t.index ["team_squad_id"], name: "index_team_squad_members_on_team_squad_id"
@@ -145,6 +156,8 @@ ActiveRecord::Schema.define(version: 2021_03_14_052223) do
   add_foreign_key "bowling_player_innings", "innings"
   add_foreign_key "bowling_player_innings", "players"
   add_foreign_key "innings", "matches"
+  add_foreign_key "player_runs_notifiers", "team_squad_members"
+  add_foreign_key "player_runs_notifiers", "users"
   add_foreign_key "team_squad_members", "players"
   add_foreign_key "team_squad_members", "team_squads"
   add_foreign_key "team_squads", "matches"

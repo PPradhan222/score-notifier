@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @player_runs_notifier.user_id %>
+</p>
+
+<p>
+  <strong>Team squad member:</strong>
+  <%= @player_runs_notifier.team_squad_member_id %>
+</p>
+
+<p>
+  <strong>Runs:</strong>
+  <%= @player_runs_notifier.runs %>
+</p>
+
+<%= link_to 'Edit', edit_player_runs_notifier_path(@player_runs_notifier) %> |
+<%= link_to 'Back', player_runs_notifiers_path %>
