@@ -9,6 +9,7 @@ module Spiders
       match_key = "match_#{match.web_match_id}"
       if match.live?
         $redis&.set match_key, scorecard&.to_json
+        NotificationWorker.perform_async(match.web_match_id)
       else
         $redis&.del(match_key)
         WebScrapper::UpdateInnings.new(scorecard[:innings], match, scorecard[:match_result]).call
