@@ -10,7 +10,9 @@ module Spiders
     end
 
     def parse(response, url:, data: {})
-      recent_matches = response.xpath(".//div[@ng-show=\"active_match_type == 'international-tab'\"]/div[contains(@class, \"cb-mtch-lst\")]")
+      international_recent_matches = response.xpath(".//div[@ng-show=\"active_match_type == 'international-tab'\"]/div[contains(@class, \"cb-mtch-lst\")]")
+      league_recent_matches = response.xpath(".//div[@ng-show=\"active_match_type == 'league-tab'\"]/div[contains(@class, \"cb-mtch-lst\")]")
+      recent_matches = international_recent_matches + league_recent_matches
       recent_matches_ids_and_results(recent_matches)
     end
 

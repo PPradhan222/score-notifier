@@ -9,7 +9,7 @@ module Notification
     def call
       run_notifications = []
       batsmen_runs.each do |batsman|
-        run_notifications += TeamSquadMember.find_by(player_profile_id: batsman[0]).player_runs_notifiers.where("runs <= ?", batsman[1])
+        run_notifications += TeamSquadMember.find_by(player_profile_id: batsman[0])&.player_runs_notifiers&.where("runs <= ?", batsman[1])
       end
       run_notifications.map { |rn| rn.destroy }
     end
