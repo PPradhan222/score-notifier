@@ -19,8 +19,8 @@ class ScoresController < ApplicationController
   end
 
   def scrape_upcoming_matches
-    url = "https://www.cricbuzz.com/cricket-schedule/upcoming-series/international"
-    UpcomingMatchesWorker.perform_async(url)
+    urls = ["https://www.cricbuzz.com/cricket-schedule/upcoming-series/international", "https://www.cricbuzz.com/cricket-schedule/upcoming-series/league"]
+    urls.map { |url| UpcomingMatchesWorker.perform_async(url) }
     redirect_to matches_path
   end
 

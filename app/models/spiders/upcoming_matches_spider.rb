@@ -11,10 +11,11 @@ module Spiders
 
     def parse(response, url:, data: {})
       result = []
-      response.css('div#international-list/div').first(7).each do |matches_by_date|
+      match_level = url&.split("/")&.last
+      response.css("div##{match_level}-list/div").first(7).each do |matches_by_date|
         date = matches_by_date.at_css('div').text
         matches_by_date.css('/div.cb-col').each do |match_node|
-          result << match_data(match_node, date, 'international')
+          result << match_data(match_node, date, match_level)
         end
       end
       result

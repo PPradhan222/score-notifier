@@ -14,7 +14,7 @@ update_upcoming_matches:
   cron: "0 */3 * * *"
   class: "UpcomingMatchesWorker"
   queue: default
-  args: ["https://www.cricbuzz.com/cricket-schedule/upcoming-series/international"]
+  args: [["https://www.cricbuzz.com/cricket-schedule/upcoming-series/international", "https://www.cricbuzz.com/cricket-schedule/upcoming-series/league"]]
   description: "update upcoming matches in every 3 hours"
 update_team_squad_members:
   cron: "0 */6 * * *"

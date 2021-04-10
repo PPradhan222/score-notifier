@@ -2,7 +2,7 @@ class UpcomingMatchesWorker
   include Sidekiq::Worker
   sidekiq_options retry: false
 
-  def perform(url)
-    Spiders::UpcomingMatchesSpider.process(url)
+  def perform(urls)
+    urls.map { |url| Spiders::UpcomingMatchesSpider.process(url) }
   end
 end
