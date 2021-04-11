@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_30_084745) do
+ActiveRecord::Schema.define(version: 2021_04_01_175108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,14 @@ ActiveRecord::Schema.define(version: 2021_03_30_084745) do
     t.string "format"
   end
 
+  create_table "notification_data", force: :cascade do |t|
+    t.string "endpoint"
+    t.string "p256dh_key"
+    t.string "auth_key"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "player_runs_notifiers", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "team_squad_member_id", null: false
@@ -148,6 +156,8 @@ ActiveRecord::Schema.define(version: 2021_03_30_084745) do
     t.string "password"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "notif_id"
+    t.string "auth_key"
   end
 
   add_foreign_key "balls", "innings"

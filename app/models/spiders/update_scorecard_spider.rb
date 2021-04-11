@@ -10,6 +10,7 @@ module Spiders
       if match.live?
         $redis&.set match_key, scorecard&.to_json
         NotificationWorker.perform_async(match.web_match_id)
+        broadcast_scorecard(scorecard, match)
       else
         $redis&.del(match_key)
         WebScrapper::UpdateInnings.new(scorecard[:innings], match, scorecard[:match_result]).call
@@ -101,6 +102,12 @@ module Spiders
         bowling_card << bowler
       end
       bowling_card
+    end
+
+    def self.broadcast_scorecard(scorecard, match)
+      ScoreboardChannel.broadcast_to match,
+        innings: scorecard[:innings],
+        match_result: scorecard[:match_result]
     end
 
     # def overs_to_ball(overs_string)

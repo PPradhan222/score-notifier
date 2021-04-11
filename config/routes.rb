@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
+  
   resources :users
   resources :player_runs_notifiers
   root 'scores#index'
