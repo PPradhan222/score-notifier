@@ -1,12 +1,12 @@
 <h1>LiveScore</h1>
-<h4><%= @match.recent? ? 'Result:' : 'Status:' %></h4><p class="live-match-status" data-match-id="<%= @match.id %>"><%= @match_data["match_result"] %></p>
+<h4><%= @match.recent? ? 'Result:' : 'Status:' %></h4><p id="live-match-status" data-match-id="<%= @match.id %>"><%= @match_data["match_result"] %></p>
 <% @match_data["innings"].sort_by {|inning| inning["inning_number"]}.each do |inning| %>
-  <div>
+  <div id=<%= "inning-#{inning["inning_number"]}" %>>
     <h3>Inning <%= inning["inning_number"] %> </h3>
-    <p><%= inning["name"] %></p>
+    <p class="inning-status"><%= inning["name"] %></p>
+    <%= render partial: 'live_inning_batting_card', locals: { inning: inning } %>
+    <%= render partial: 'live_inning_bowling_card', locals: { inning: inning } %>
   </div>
-  <%= render partial: 'live_inning_batting_card', locals: { inning: inning } %>
-  <%= render partial: 'live_inning_bowling_card', locals: { inning: inning } %>
 <% end%>
 
 <style>

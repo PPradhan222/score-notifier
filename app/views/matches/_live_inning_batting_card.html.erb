@@ -1,4 +1,4 @@
-<table style="width:100%">
+<table style="width:100%" class="inning-batting-table">
   <thead>
     <th>Batsman</th>
     <th>Status</th>
@@ -10,14 +10,14 @@
   </thead>
   <tbody>
     <% inning["batting_card"].each do |batsman| %>
-      <tr>
-        <td><%= batsman["profile_url"]&.split("/")&.last&.titleize %></td>
-        <td><%= batsman["wicket_status"] %></td>
-        <td><%= batsman["runs_scored"] %></td>
-        <td><%= batsman["balls_faced"] %></td>
-        <td><%= batsman["fours"] %></td>
-        <td><%= batsman["sixes"] %></td>
-        <td><%= batsman["strike_rate"] %></td>
+      <tr class="batsman-data" data-batsman-id=<%= batsman["profile_url"] %>>
+        <td class="batsman-profile-url"><%= batsman["profile_url"]&.split("/")&.last&.titleize %></td>
+        <td class="batsman-wicket-status"><%= batsman["wicket_status"] %></td>
+        <td class="batsman-runs-scored"><%= batsman["runs_scored"] %></td>
+        <td class="batsman-balls-faced"><%= batsman["balls_faced"] %></td>
+        <td class="batsman-fours"><%= batsman["fours"] %></td>
+        <td class="batsman-sixes"><%= batsman["sixes"] %></td>
+        <td class="batsman-strike-rate"><%= batsman["strike_rate"] %></td>
       </tr>
     <% end %>
   </tbody>
