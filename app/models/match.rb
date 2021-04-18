@@ -5,6 +5,7 @@ class Match < ApplicationRecord
   # exactly 2 team_squads & teams
   has_many :teams, through: :team_squads
   has_many :squad_members, through: :team_squads, source: :team_squad_members
+  has_many :batsman_score_notifiers, dependent: :destroy
 
   validates :web_match_id, uniqueness: true
 

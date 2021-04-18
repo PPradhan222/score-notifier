@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: 
+  batsman_match_id: MyString
+  match: 
+  user_endpoint: MyString
+  user_p256dh: MyString
+  user_auth: MyString
+  runs_scored: 1
+  balls_faced: 1
+  fours: 1
+  sixes: 1
+  strike_rate: 1
+
+two:
+  user: 
+  batsman_match_id: MyString
+  match: 
+  user_endpoint: MyString
+  user_p256dh: MyString
+  user_auth: MyString
+  runs_scored: 1
+  balls_faced: 1
+  fours: 1
+  sixes: 1
+  strike_rate: 1

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_01_175108) do
+ActiveRecord::Schema.define(version: 2021_04_18_095446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,24 @@ ActiveRecord::Schema.define(version: 2021_04_01_175108) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["inning_id"], name: "index_balls_on_inning_id"
+  end
+
+  create_table "batsman_score_notifiers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "batsman_match_id", null: false
+    t.bigint "match_id", null: false
+    t.string "user_endpoint", null: false
+    t.string "user_p256dh", null: false
+    t.string "user_auth", null: false
+    t.integer "runs_scored"
+    t.integer "balls_faced"
+    t.integer "fours"
+    t.integer "sixes"
+    t.decimal "strike_rate"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["match_id"], name: "index_batsman_score_notifiers_on_match_id"
+    t.index ["user_id"], name: "index_batsman_score_notifiers_on_user_id"
   end
 
   create_table "batting_player_innings", force: :cascade do |t|
@@ -98,16 +116,6 @@ ActiveRecord::Schema.define(version: 2021_04_01_175108) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "player_runs_notifiers", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "team_squad_member_id", null: false
-    t.integer "runs"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["team_squad_member_id"], name: "index_player_runs_notifiers_on_team_squad_member_id"
-    t.index ["user_id"], name: "index_player_runs_notifiers_on_user_id"
-  end
-
   create_table "players", force: :cascade do |t|
     t.string "name"
     t.string "role"
@@ -151,23 +159,23 @@ ActiveRecord::Schema.define(version: 2021_04_01_175108) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "notif_id"
-    t.string "auth_key"
+    t.string "endpoint"
+    t.string "p256dh"
+    t.string "auth"
+    t.index ["endpoint"], name: "index_users_on_endpoint"
   end
 
   add_foreign_key "balls", "innings"
+  add_foreign_key "batsman_score_notifiers", "matches"
+  add_foreign_key "batsman_score_notifiers", "users"
   add_foreign_key "batting_player_innings", "innings"
   add_foreign_key "batting_player_innings", "players"
   add_foreign_key "bowling_player_innings", "innings"
   add_foreign_key "bowling_player_innings", "players"
   add_foreign_key "innings", "matches"
-  add_foreign_key "player_runs_notifiers", "team_squad_members"
-  add_foreign_key "player_runs_notifiers", "users"
   add_foreign_key "team_squad_members", "players"
   add_foreign_key "team_squad_members", "team_squads"
   add_foreign_key "team_squads", "matches"

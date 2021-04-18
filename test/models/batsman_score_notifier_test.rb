@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PlayerRunsNotifierTest < ActiveSupport::TestCase
+class BatsmanScoreNotifierTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
