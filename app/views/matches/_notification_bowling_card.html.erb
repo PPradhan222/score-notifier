@@ -1,0 +1,22 @@
+<table style="width:100%" class="inning-bowling-table">
+  <thead>
+    <th>Bowler</th>
+    <th>O</th>
+    <th>M</th>
+    <th>R</th>
+    <th>W</th>
+    <th>ECO</th>
+  </thead>
+  <tbody>
+    <% inning["bowling_card"].each do |bowler| %>
+      <tr class="bowler-data" data-bowler-id=<%= bowler["profile_url"] %>>
+        <td class="bowler-profile-url"><%= bowler["profile_url"]&.split("/")&.last&.titleize %></td>
+        <td class="bowler-overs"><%= bowler["overs"] %></td>
+        <td class="bowler-maiden-overs"><%= bowler["maiden_overs"] %></td>
+        <td class="bowler-runs-conceded"><%= bowler["runs_conceded"] %></td>
+        <td class="bowler-wickets-taken"><%= bowler["wickets_taken"]%></td>
+        <td class="bowler-economy-rate"><%= bowler["economy_rate"] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

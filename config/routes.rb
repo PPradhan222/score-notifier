@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       get :initialize_scorecard
       get :update_scorecard
       get :live_score
+      get :add_notifications
+      post :create_notifications
     end
 
     collection do

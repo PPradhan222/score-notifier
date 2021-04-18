@@ -1,0 +1,32 @@
+<h1>Add Notification</h1>
+<h4><%= @match.recent? ? 'Result:' : 'Status:' %></h4><p id="add-notifications-match-status" data-match-id="<%= @match.id %>"><%= @match_data["match_result"] %></p>
+<br>
+<%= form_with url: create_notifications_match_path(@match), method: :post, class: "match-notifications-form" do |form| %>
+  <%= form.submit 'Submit Notification', class: "match-notifications-submit" %>
+  <% @match_data["innings"].sort_by {|inning| inning["inning_number"]}.each do |inning| %>
+    <div id=<%= "inning-#{inning["inning_number"]}" %>>
+      <h3>Inning <%= inning["inning_number"] %> </h3>
+      <p class="inning-status"><%= inning["name"] %></p>
+      <%= render partial: 'notification_batting_card', locals: { inning: inning, form: form, innings_count: @match_data["innings"].length } %>
+      <%= render partial: 'notification_bowling_card', locals: { inning: inning, form: form, innings_count: @match_data["innings"].length } %>
+    </div>
+  <% end %>
+<% end %>
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>

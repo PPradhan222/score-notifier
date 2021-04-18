@@ -1,5 +1,5 @@
 class MatchesController < ApplicationController
-  before_action :load_match, only: [:show, :live_score, :initialize_scorecard, :update_scorecard]
+  before_action :load_match, only: [:show, :live_score, :initialize_scorecard, :create_notifications,:update_scorecard, :add_notifications]
   attr_reader :match
 
   def index
@@ -8,6 +8,19 @@ class MatchesController < ApplicationController
 
   def show
     @innings = @match.innings
+  end
+
+  def add_notifications
+    match_key = "match_#{match.web_match_id}"
+    unless $redis.exists? match_key
+      redirect_to match
+      return
+    end
+    @match_data = JSON.parse($redis.get match_key)
+  end
+
+  def create_notifications
+    # binding.pry
   end
 
   def live_score

@@ -1,0 +1,34 @@
+<table style="width:100%" class="inning-batting-table">
+  <thead>
+    <th>Batsman</th>
+    <th>Status</th>
+    <th>R</th>
+    <th>B</th>
+    <th>4s</th>
+    <th>6s</th>
+    <th>SR</th>
+  </thead>
+  <tbody>
+    <% inning["batting_card"].each do |batsman| %>
+      <%= form.fields_for "batsmen", index: batsman["profile_url"] do |batsman_form|%>
+        <tr class="batsman-data" data-batsman-id=<%= batsman["profile_url"] %>>
+          <td><%= batsman["profile_url"]&.split("/")&.last&.titleize %></td>
+          <td><%= batsman["wicket_status"] %></td>
+          <% if (batsman["wicket_status"] == 'batting' || !batsman["wicket_status"]) && inning["inning_number"] == innings_count %>
+            <td><%= batsman_form.text_field :runs_scored, placeholder: "#{batsman["runs_scored"]}" %></td>
+            <td><%= batsman_form.text_field :balls_faced, placeholder: "#{batsman["balls_faced"]}" %></td>
+            <td><%= batsman_form.text_field :fours, placeholder: "#{batsman["fours"]}" %></td>
+            <td><%= batsman_form.text_field :sixes, placeholder: "#{batsman["sixes"]}" %></td>
+            <td><%= batsman_form.text_field :strike_rate, placeholder: "#{batsman["strike_rate"]}" %></td>
+          <% else %>
+            <td><%= batsman["runs_scored"] %></td>
+            <td><%= batsman["balls_faced"] %></td>
+            <td><%= batsman["fours"] %></td>
+            <td><%= batsman["sixes"] %></td>
+            <td><%= batsman["strike_rate"] %></td>
+          <% end%>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
