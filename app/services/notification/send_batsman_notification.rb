@@ -38,7 +38,7 @@ module Notification
         batsman_notifications += BatsmanScoreNotifier.where(batsman_match_id: batsman[:batsman_match_id])
         .where("balls_faced <= ? OR runs_scored <= ? OR sixes <= ? OR fours <= ?", batsman[:balls_faced], batsman[:runs_scored], batsman[:sixes], batsman[:fours])
       end
-      batsman_notifications.map { |rn| rn.destroy }
+      SendPushNotificationWorker.perform_async(batsman_notifications) unless batsman_notifications.blank?
     end
   end
 end
