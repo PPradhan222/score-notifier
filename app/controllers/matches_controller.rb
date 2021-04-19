@@ -8,6 +8,11 @@ class MatchesController < ApplicationController
   end
 
   def show
+    match_key = "match_#{match.web_match_id}"
+    if (match.live? && $redis.exists?(match_key))
+      redirect_to live_score_match_path(match)
+      return
+    end
     @innings = @match.innings
   end
 

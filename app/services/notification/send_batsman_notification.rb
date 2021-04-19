@@ -72,7 +72,7 @@ module Notification
 
     def create_message(batsman_match_ids)
       message = ""
-      batsman_match_ids.map {|id| message += "#{batsmen_score_hash[id]}/n"}
+      batsman_match_ids.map {|id| message += "#{batsmen_score_hash[id]}\n"}
       message
     end
   end
