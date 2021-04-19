@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_19_075043) do
+ActiveRecord::Schema.define(version: 2021_04_19_113536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_075043) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["match_id"], name: "index_batsman_score_notifiers_on_match_id"
+    t.index ["user_id", "batsman_match_id"], name: "index_batsman_score_notifiers_on_user_id_and_batsman_match_id", unique: true
     t.index ["user_id"], name: "index_batsman_score_notifiers_on_user_id"
   end
 
@@ -162,7 +163,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_075043) do
     t.string "endpoint", null: false
     t.string "p256dh", null: false
     t.string "auth", null: false
-    t.index ["endpoint"], name: "index_users_on_endpoint"
+    t.index ["endpoint"], name: "index_users_on_endpoint", unique: true
   end
 
   add_foreign_key "balls", "innings"

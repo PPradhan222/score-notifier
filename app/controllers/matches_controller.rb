@@ -25,7 +25,7 @@ class MatchesController < ApplicationController
     batsmen = params[:batsmen].permit!
     match_id = match.id
     batsmen.to_hash.each do |batsman_data|
-      next unless (batsman_data[1]["runs_scored"] || batsman_data[1]["balls_faced"] || batsman_data[1]["fours"] || batsman_data[1]["sixes"] || batsman_data[1]["strike_rate"])
+      next if (batsman_data[1]["runs_scored"] + batsman_data[1]["balls_faced"] + batsman_data[1]["fours"] + batsman_data[1]["sixes"] + batsman_data[1]["strike_rate"]).blank?
       batsman_match_id = "match_#{match.web_match_id}_#{batsman_data[0].split("/").third}"
       batSN = user.batsman_score_notifiers
       .create(match_id: match_id, batsman_match_id: batsman_match_id, runs_scored: batsman_data[1]["runs_scored"], balls_faced: batsman_data[1]["balls_faced"], fours: batsman_data[1]["fours"], sixes: batsman_data[1]["sixes"], strike_rate: batsman_data[1]["strike_rate"])
@@ -66,6 +66,7 @@ class MatchesController < ApplicationController
   end
 
   def load_user
-    @user = User.create(endpoint: params[:user_endpoint], p256dh: params[:user_p256dh], auth: params[:user_auth])
+    @user = User.find_by(endpoint: params[:user_endpoint])
+    @user = User.create(endpoint: params[:user_endpoint], p256dh: params[:user_p256dh], auth: params[:user_auth]) unless @user
   end
 end

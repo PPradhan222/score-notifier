@@ -2,7 +2,8 @@ class BatsmanScoreNotifier < ApplicationRecord
   belongs_to :user
   belongs_to :match
 
-  validates :runs_scored, numericality: { less_than_or_equal_to: 500, only_integer: true }
+  # validates :runs_scored, numericality: { less_than_or_equal_to: 500 }
+  validates :user_id, uniqueness: { scope: :batsman_match_id }
   # validate :more_than_zero
 
   # def runs_only_in_tens_format

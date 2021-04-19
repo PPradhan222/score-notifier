@@ -38,8 +38,10 @@ module Notification
     def matured_notifications
       batsman_notifications = []
       batsmen_scorecard_data.each do |batsman|
-        batsman_notifications += BatsmanScoreNotifier.where(batsman_match_id: batsman[:batsman_match_id])
+        notifications = BatsmanScoreNotifier.where(batsman_match_id: batsman[:batsman_match_id])
         .where("balls_faced <= ? OR runs_scored <= ? OR sixes <= ? OR fours <= ?", batsman[:balls_faced], batsman[:runs_scored], batsman[:sixes], batsman[:fours])
+        batsman_notifications += notifications
+        notifications.destroy_all
       end
       # SendPushNotificationWorker.perform_async(batsman_notifications) unless batsman_notifications.blank?
       send_push_notifications(batsman_notifications) unless batsman_notifications.blank?
@@ -52,6 +54,7 @@ module Notification
         # binding.pry
         web_push(message, user&.endpoint, user&.p256dh, user&.auth)
       end
+      batsman_notifications.clear
     end
 
     def web_push(message, user_endpoint, user_p256dh, user_auth)
