@@ -14,7 +14,7 @@
         <tr class="batsman-data" data-batsman-id=<%= batsman["profile_url"] %>>
           <td><%= batsman["profile_url"]&.split("/")&.last&.titleize %></td>
           <td><%= batsman["wicket_status"] %></td>
-          <% if (batsman["wicket_status"] == 'batting' || !batsman["wicket_status"]) && inning["inning_number"] == innings_count %>
+          <% if (batsman["wicket_status"] == 'batting' || batsman["wicket_status"]) && inning["inning_number"] == innings_count %>
             <td><%= batsman_form.text_field :runs_scored, placeholder: "#{batsman["runs_scored"]}" %></td>
             <td><%= batsman_form.text_field :balls_faced, placeholder: "#{batsman["balls_faced"]}" %></td>
             <td><%= batsman_form.text_field :fours, placeholder: "#{batsman["fours"]}" %></td>
