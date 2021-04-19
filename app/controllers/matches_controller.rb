@@ -1,6 +1,7 @@
 class MatchesController < ApplicationController
   before_action :load_match, only: [:show, :live_score, :initialize_scorecard, :create_notifications,:update_scorecard, :add_notifications]
-  attr_reader :match
+  before_action :load_user, only: :create_notifications
+  attr_reader :match, :user
 
   def index
     @matches = Match.all
@@ -20,7 +21,15 @@ class MatchesController < ApplicationController
   end
 
   def create_notifications
-    # binding.pry
+    return unless user
+    batsmen = params[:batsmen].permit!
+    match_id = match.id
+    batsmen.to_hash.each do |batsman_data|
+      next unless (batsman_data[1]["runs_scored"] || batsman_data[1]["balls_faced"] || batsman_data[1]["fours"] || batsman_data[1]["sixes"] || batsman_data[1]["strike_rate"])
+      batsman_match_id = "match_#{match.web_match_id}_#{batsman_data[0].split("/").third}"
+      batSN = user.batsman_score_notifiers
+      .create(match_id: match_id, batsman_match_id: batsman_match_id, runs_scored: batsman_data[1]["runs_scored"], balls_faced: batsman_data[1]["balls_faced"], fours: batsman_data[1]["fours"], sixes: batsman_data[1]["sixes"], strike_rate: batsman_data[1]["strike_rate"])
+    end
   end
 
   def live_score
@@ -54,5 +63,9 @@ class MatchesController < ApplicationController
 
   def load_match
     @match = Match.find_by(id: params[:id])
+  end
+
+  def load_user
+    @user = User.create(endpoint: params[:user_endpoint], p256dh: params[:user_p256dh], auth: params[:user_auth])
   end
 end

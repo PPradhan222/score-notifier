@@ -11,6 +11,9 @@
       <%= render partial: 'notification_bowling_card', locals: { inning: inning, form: form, innings_count: @match_data["innings"].length } %>
     </div>
   <% end %>
+  <%= form.hidden_field :user_endpoint %>
+  <%= form.hidden_field :user_p256dh %>
+  <%= form.hidden_field :user_auth %>
 <% end %>
 
 <style>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_18_095446) do
+ActiveRecord::Schema.define(version: 2021_04_19_075043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,9 +33,6 @@ ActiveRecord::Schema.define(version: 2021_04_18_095446) do
     t.bigint "user_id", null: false
     t.string "batsman_match_id", null: false
     t.bigint "match_id", null: false
-    t.string "user_endpoint", null: false
-    t.string "user_p256dh", null: false
-    t.string "user_auth", null: false
     t.integer "runs_scored"
     t.integer "balls_faced"
     t.integer "fours"
@@ -162,9 +159,9 @@ ActiveRecord::Schema.define(version: 2021_04_18_095446) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "notif_id"
-    t.string "endpoint"
-    t.string "p256dh"
-    t.string "auth"
+    t.string "endpoint", null: false
+    t.string "p256dh", null: false
+    t.string "auth", null: false
     t.index ["endpoint"], name: "index_users_on_endpoint"
   end
 
