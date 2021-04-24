@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   
   resources :users
-  root 'scores#index'
+  root 'matches#index'
   require 'sidekiq/web'
   require 'sidekiq/cron/web'
   mount Sidekiq::Web => '/sidekiq'
@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
     collection do
       get :update_status
+      get :temp_matches
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

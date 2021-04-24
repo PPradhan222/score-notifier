@@ -1,0 +1,51 @@
+<h1>Matches#index</h1>
+<h2 id="sample"></h2>
+<table style="width:100%">
+  <thead>
+    <th>Series</th>
+    <th>Match</th>
+    <th>Date & Time</th>
+    <th>Venue</th>
+    <th>Math Info</th>
+    <th>Live Score</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </thead>
+  <tbody>
+    <% @matches.each do |match|%>
+      <tr>
+        <td><%= match.series_name %></td>
+        <td><%= match.name %></td>
+        <td><%= match.date_time.to_s %></td>
+        <td><%= match.venue %></td>
+        <td><%= link_to 'Info', match_path(match) %></td>
+        <td><%= link_to 'Live', live_score_match_path(match) if match.live? %></td>
+        <td><%= match.status&.titleize %></td>
+        <td>
+          <ul>
+            <li><%= link_to 'Initialize Scorecard', initialize_scorecard_match_path(match)  %></li>
+            <li><%= link_to 'Update Scorecard', update_scorecard_match_path(match)  %></li>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>

@@ -7,6 +7,10 @@ class MatchesController < ApplicationController
     @matches = Match.all
   end
 
+  def temp_matches
+    @matches = Match.all
+  end
+
   def show
     match_key = "match_#{match.web_match_id}"
     if (match.live? && $redis.exists?(match_key))
