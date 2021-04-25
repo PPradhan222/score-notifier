@@ -1,51 +1,38 @@
-<h1>Matches#index</h1>
-<h2 id="sample"></h2>
-<table style="width:100%">
-  <thead>
-    <th>Series</th>
-    <th>Match</th>
-    <th>Date & Time</th>
-    <th>Venue</th>
-    <th>Math Info</th>
-    <th>Live Score</th>
-    <th>Status</th>
-    <th>Actions</th>
-  </thead>
-  <tbody>
-    <% @matches.each do |match|%>
-      <tr>
-        <td><%= match.series_name %></td>
-        <td><%= match.name %></td>
-        <td><%= match.date_time.to_s %></td>
-        <td><%= match.venue %></td>
-        <td><%= link_to 'Info', match_path(match) %></td>
-        <td><%= link_to 'Live', live_score_match_path(match) if match.live? %></td>
-        <td><%= match.status&.titleize %></td>
-        <td>
-          <ul>
-            <li><%= link_to 'Initialize Scorecard', initialize_scorecard_match_path(match)  %></li>
-            <li><%= link_to 'Update Scorecard', update_scorecard_match_path(match)  %></li>
-          </ul>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
+<div class="cards row">
+  <% @matches.each do |match| %>
+    <div class="col-sm-6">
+      <div class="card h-100 shadow">
+        <a href="matches/<%= match.id %>"  class="match-card" style="text-decoration: none" >
+          <div class="card-header">
+            <div class="clearfix">
+              <span class="text-left"><strong><%= match.date_time.localtime.to_s %></strong></span>
+              <% if match.status == "live" %>
+                <span class="text-right badge rounded-pill bg-info text-dark" style="float:right">LIVE</span>
+              <% end %>
+            </div>
+            <span class="text-muted text-left"><%= match.venue %></span>
+          </div>
+          <div class="card-body">
+            <p class="card-subtitle mb-2 text-muted"><small><%= match_number(match.name) + ", " + match.series_name %></small></p>
+            <h6 class="card-title"><%= match_name(match.name) %></h6>
+            <div class="clearfix">
+              <span class="text-left">TEAM</span>
+              <span class="text-right" style="float:right">SCORE</span>
+            </div>
+            <div class="clearfix">
+              <span class="text-left">TEAM</span>
+              <span class="text-right" style="float:right">SCORE</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <% if match.status == "upcoming" %>
+              <span class="text-left text-muted">Match yet to begin</span>
+            <% else %>
+              <span class="text-left text-muted"><%= match.result %></span>
+            <% end %>
+          </div>
+        </a>
+      </div>
+    </div>
+  <% end %>
+</div>
