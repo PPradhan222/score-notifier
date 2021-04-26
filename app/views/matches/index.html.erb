@@ -1,38 +1,35 @@
-<div class="cards row">
-  <% @matches.each do |match| %>
-    <div class="col-sm-6">
-      <div class="card h-100 shadow">
-        <a href="matches/<%= match.id %>"  class="match-card" style="text-decoration: none" >
-          <div class="card-header">
-            <div class="clearfix">
-              <span class="text-left"><strong><%= match.date_time.localtime.to_s %></strong></span>
-              <% if match.status == "live" %>
-                <span class="text-right badge rounded-pill bg-info text-dark" style="float:right">LIVE</span>
+<div class="card">
+  <div class="card-header">
+    <%= render partial: 'matches_header' %>
+  </div>
+  <div class="cards row">
+    <% @matches.each do |match| %>
+      <div class="col-sm-6 <%= match.format + "-match"%>">
+        <div class="card h-100 shadow">
+          <a href="matches/<%= match.id %>"  class="match-card" style="text-decoration: none" >
+            <div class="card-header">
+              <div class="clearfix">
+                <span class="text-left"><strong><%= match.date_time.localtime.to_s %></strong></span>
+                <% if match.status == "live" %>
+                  <span class="text-right badge rounded-pill bg-info text-dark" style="float:right">LIVE</span>
+                <% end %>
+              </div>
+              <span class="text-muted text-left"><%= match.venue %></span>
+            </div>
+            <div class="card-body">
+              <p class="card-subtitle mb-2 text-muted"><small><%= match_number(match.name) + ", " + match.series_name %></small></p>
+              <%= render partial: 'match_card_score', locals: { match: match } %>
+            </div>
+            <div class="card-footer">
+              <% if match.status == "upcoming" %>
+                <span class="text-left text-muted">Match yet to begin</span>
+              <% else %>
+                <span class="text-left text-muted"><%= match.result %></span>
               <% end %>
             </div>
-            <span class="text-muted text-left"><%= match.venue %></span>
-          </div>
-          <div class="card-body">
-            <p class="card-subtitle mb-2 text-muted"><small><%= match_number(match.name) + ", " + match.series_name %></small></p>
-            <h6 class="card-title"><%= match_name(match.name) %></h6>
-            <div class="clearfix">
-              <span class="text-left">TEAM</span>
-              <span class="text-right" style="float:right">SCORE</span>
-            </div>
-            <div class="clearfix">
-              <span class="text-left">TEAM</span>
-              <span class="text-right" style="float:right">SCORE</span>
-            </div>
-          </div>
-          <div class="card-footer">
-            <% if match.status == "upcoming" %>
-              <span class="text-left text-muted">Match yet to begin</span>
-            <% else %>
-              <span class="text-left text-muted"><%= match.result %></span>
-            <% end %>
-          </div>
-        </a>
+          </a>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>

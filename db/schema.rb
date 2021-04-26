@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_19_113536) do
+ActiveRecord::Schema.define(version: 2021_04_25_092705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,8 @@ ActiveRecord::Schema.define(version: 2021_04_19_113536) do
     t.string "web_match_id"
     t.integer "status"
     t.string "format"
+    t.string "team1_name"
+    t.string "team2_name"
   end
 
   create_table "notification_data", force: :cascade do |t|

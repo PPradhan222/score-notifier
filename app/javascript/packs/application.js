@@ -17,6 +17,7 @@ require("jquery")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 require("packs/push_notification")
+require("packs/matches")
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {

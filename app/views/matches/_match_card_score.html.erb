@@ -1,0 +1,26 @@
+<% if match&.status == 'upcoming'%>
+  <div class="clearfix">
+    <span class="text-left"><%= match.team1_name&.titleize %></span>
+    <span class="text-right" style="float:right"></span>
+  </div>
+  <div class="clearfix">
+    <span class="text-left"><%= match.team2_name&.titleize %></span>
+    <span class="text-right" style="float:right"></span>
+  </div>
+<% elsif match&.status == "live" %>
+<div class="clearfix">
+    <span class="text-left"><%= match.team1_name&.titleize %></span>
+    <span class="text-right" style="float:right"></span>
+  </div>
+  <div class="clearfix">
+    <span class="text-left"><%= match.team2_name&.titleize %></span>
+    <span class="text-right" style="float:right"></span>
+  </div>
+<% else %>
+  <% match.innings.each do |inning| %>
+    <div class="clearfix">
+      <span class="text-left"><%= inning.name.split("Innings").first %></span>
+      <span class="text-right" style="float:right"><%= inning.name.split("Innings").last %></span>
+    </div>
+  <% end %>
+<% end %>

@@ -27,6 +27,7 @@ module WebScrapper
         current_match = Match.find_or_create_by(match)
         TeamSquad.find_or_create_by(match_id: current_match&.id, team_id: first_team.id) if first_team
         TeamSquad.find_or_create_by(match_id: current_match&.id, team_id: second_team.id) if second_team
+        current_match&.update(team1_name: first_team&.name, team2_name: second_team&.name)
       end
     end
 
@@ -45,7 +46,7 @@ module WebScrapper
       ['t20', 'odi', 'test'].each do |format|
         return format if format_string.include?(format)
       end
-      return 'other'
+      return 't20'
     end
 
     def web_match_url(url_string)
