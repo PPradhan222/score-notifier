@@ -1,21 +1,36 @@
-<form>
-  <div>
-    <div class="row col-lg-6">
-      
-    </div>
-    <div class="row col-lg-6">
-      <div class="custom-control custom-switch col format-switch">
+<div class="row">
+  <ul class="nav nav-tabs nav-justified col-md-6">
+    <li class="nav-item match-status-link" data-status-id="recent">
+      <span class="nav-link <%=@active_status == 'recent' ? "active" : "text-white" %>">Recent</span>
+    </li>
+    <li class="nav-item match-status-link" data-status-id="live">
+      <span class="nav-link <%=@active_status == 'live' ? "active" : "text-white" %>">Live</span>
+    </li>
+    <li class="nav-item match-status-link" data-status-id="upcoming">
+      <span class="nav-link <%=@active_status == 'upcoming' ? "active" : "text-white" %>">Upcoming</span>
+    </li>
+  </ul>
+  <%= search_form_for @q, url: matches_path, class: 'matches-filters-form' do |f| %>
+    <%= f.hidden_field :status_eq, value: params[:q]&.dig(:status_eq) %>
+  <% end %>
+  <form class="row col-md-6" style="padding-left: 10%;">
+    <div class="custom-control custom-switch col format-switch">
+      <div class="match-format-switch">
         <input type="checkbox" class="custom-control-input" id="t20-switch" data-format-id="t20" checked>
         <label class="custom-control-label" for="t20-switch">T20</label>
       </div>
-      <div class="custom-control custom-switch col format-switch">
-        <input type="checkbox" class="custom-control-input" id="odi-switch" data-format-id="odi" checked>
-        <label class="custom-control-label" for="odi-switch">ODI</label>
-      </div>
-      <div class="custom-control custom-switch col format-switch">
-        <input type="checkbox" class="custom-control-input" id="test-switch" data-format-id="test" checked>
-        <label class="custom-control-label" for="test-switch">TEST</label>
-      </div>
     </div>
-  </div>
-</form>
+    <div class="custom-control custom-switch col format-switch">
+      <div class="match-format-switch">
+      <input type="checkbox" class="custom-control-input" id="odi-switch" data-format-id="odi" checked>
+      <label class="custom-control-label" for="odi-switch">ODI</label>
+    </div>
+    </div>
+    <div class="custom-control custom-switch col format-switch">
+      <div class="match-format-switch">
+      <input type="checkbox" class="custom-control-input" id="test-switch" data-format-id="test" checked>
+      <label class="custom-control-label" for="test-switch">TEST</label>
+    </div>
+    </div>
+  </form>
+</div>

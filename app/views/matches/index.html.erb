@@ -1,10 +1,10 @@
 <div class="card">
-  <div class="card-header">
+  <div class="card-header bg-dark text-white" style="position: sticky; top: 0; z-index: 1;">
     <%= render partial: 'matches_header' %>
   </div>
   <div class="cards row">
     <% @matches.each do |match| %>
-      <div class="col-sm-6 <%= match.format + "-match"%>">
+      <div class="col-md-6 <%= match.format + "-match"%>">
         <div class="card h-100 shadow">
           <a href="matches/<%= match.id %>"  class="match-card" style="text-decoration: none" >
             <div class="card-header">

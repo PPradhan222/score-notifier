@@ -12,6 +12,17 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Score Notifier</span>
+        <form>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="switch1">
+            <label class="custom-control-label text-white" for="switch1">Push Notification</label>
+          </div>
+        </form>
+      </div>
+    </nav>
     <div class="container-fluid">
       <%= yield %>
     </div>

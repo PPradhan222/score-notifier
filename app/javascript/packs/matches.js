@@ -8,4 +8,11 @@ $(document).on('turbolinks:load', function () {
       match_cards.hide();
     }
   });
+
+  $(".match-status-link").on('click', function(){
+    const match_status = $(this).data("status-id");
+    const status_element = $("#q_status_eq");
+    status_element.val(match_status);
+    $(".matches-filters-form").submit();
+  });
 });

@@ -4,7 +4,10 @@ class MatchesController < ApplicationController
   attr_reader :match, :user
 
   def index
-    @matches = Match.all
+    active_status = params[:q]&.dig(:status_eq) || "live"
+    @active_status = active_status
+    @matches = Match.where(status: active_status)
+    @q = Match.all.ransack(:status_eq)
   end
 
   def temp_matches
