@@ -1,3 +1,4 @@
+<h1>ScoreCard</h1>
 <h4><%= @match.recent? ? 'Result:' : 'Status:' %></h4><p><%= @match.result %></p>
 <% @innings.order(:inning_number).each do |inning| %>
   <div>

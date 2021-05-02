@@ -1,5 +1,5 @@
 class MatchesController < ApplicationController
-  before_action :load_match, only: [:show, :live_score, :initialize_scorecard, :create_notifications,:update_scorecard, :add_notifications]
+  before_action :load_match, only: [:show, :temp_show, :live_score, :initialize_scorecard, :create_notifications,:update_scorecard, :add_notifications]
   before_action :load_user, only: :create_notifications
   attr_reader :match, :user
 
@@ -12,6 +12,10 @@ class MatchesController < ApplicationController
 
   def temp_matches
     @matches = Match.all
+  end
+
+  def temp_show
+    @innings = @match.innings
   end
 
   def show
