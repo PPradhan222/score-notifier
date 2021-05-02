@@ -1,5 +1,5 @@
-<table style="width:100%">
-  <thead>
+<table style="width:100%" class="table table-hover shadow">
+  <thead class="thead-light">
     <th>Batsman</th>
     <th>Status</th>
     <th>R</th>
@@ -12,7 +12,7 @@
     <% inning&.batting_player_innings&.order(:batting_order)&.each do |batsman| %>
       <tr>
         <td><%= batsman&.player&.web_profile_url&.split("/")&.last&.titleize %></td>
-        <td><%= batsman&.wicket_status %></td>
+        <td class="text-muted"><%= batsman&.wicket_status %></td>
         <td><%= batsman&.runs_scored %></td>
         <td><%= batsman&.balls_faced %></td>
         <td><%= batsman&.fours %></td>

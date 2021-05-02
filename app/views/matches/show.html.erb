@@ -1,28 +1,22 @@
-<h4><%= @match.recent? ? 'Result:' : 'Status:' %></h4><p><%= @match.result %></p>
-<% @innings.order(:inning_number).each do |inning| %>
-  <div>
-    <h3>Inning <%= inning.inning_number %> </h3>
-    <p><%= inning.name %></p>
+<div class="card">
+  <div class="card-header shadow" style="position: sticky; top: 0; z-index: 1; background-color: #eeeeee;">
+    <div class="row" >
+      <% @innings.order(:inning_number).each do |inning| %>
+        <div class="col" id="inning<%= inning.inning_number %>-score-header">
+          <div id="inning<%= inning.inning_number %>-team"><strong><%= inning.name.split("Innings").first.squish %></strong></div>
+          <div id="inning<%= inning.inning_number %>-score"><%= "#{inning.runs}/#{inning.wickets}  (#{inning.overs})" %></div>
+        </div>
+      <% end %>
+    </div>
+    <div><strong><%= @match.result %></strong></div>
   </div>
-  <%= render partial: 'inning_batting_card', locals: { inning: inning } %>
-  <%= render partial: 'inning_bowling_card', locals: { inning: inning } %>
-<% end%>
-<%= render partial: 'info', locals: { match: @match }%>
-
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
+  <div class="card-body" style="padding: 0">
+    <div class="score-body" style="padding: 10px">
+      <% @innings.order(:inning_number).each do |inning| %>
+        <div class="text-center bg-light shadow" style="padding: 5px;"><h6><%= "#{inning.name.split("Innings").first} Inning #{inning.inning_number}" %></h6></div>
+        <div class="table-responsive"><%= render partial: 'inning_batting_card', locals: { inning: inning } %></div>
+        <div class="table-responsive"><%= render partial: 'inning_bowling_card', locals: { inning: inning } %></div>
+      <% end%>
+    </div>
+  </div>
+</div>
