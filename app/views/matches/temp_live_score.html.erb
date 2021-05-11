@@ -1,0 +1,54 @@
+<h1>LiveScore</h1>
+<div style="float:right;"><%= link_to 'Add Notifications', add_notifications_match_path(@match) %></div>
+<h4><%= @match.recent? ? 'Result:' : 'Status:' %></h4><p id="live-match-status" data-match-id="<%= @match.id %>"><%= @match_data["match_result"] %></p>
+<table>
+  <thead>
+    <tr id="teams">
+      <th id="inning1-team" class="inning1-score" style="display: none"></th>
+      <th id="inning2-team" class="inning2-score" style="display: none"></th>
+      <th id="inning3-team" class="inning3-score" style="display: none"></th>
+      <th id="inning4-team" class="inning4-score" style="display: none"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id="score">
+      <td id="inning1-team-score" class="inning1-score" style="display: none"></td>
+      <td id="inning2-team-score" class="inning2-score" style="display: none"></td>
+      <td id="inning3-team-score" class="inning3-score" style="display: none"></td>
+      <td id="inning4-team-score" class="inning4-score" style="display: none"></td>
+    </tr>
+    <tr id="overs">
+      <td id="inning1-team-overs" class="inning1-score" style="display: none"></td>
+      <td id="inning2-team-overs" class="inning2-score" style="display: none"></td>
+      <td id="inning3-team-overs" class="inning3-score" style="display: none"></td>
+      <td id="inning4-team-overs" class="inning4-score" style="display: none"></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<% @match_data["innings"].sort_by {|inning| inning["inning_number"]}.each do |inning| %>
+  <div id=<%= "inning-#{inning["inning_number"]}" %>>
+    <h3>Inning <%= inning["inning_number"] %> </h3>
+    <p class="inning-status"><%= inning["name"] %></p>
+    <%= render partial: 'live_inning_batting_card', locals: { inning: inning } %>
+    <%= render partial: 'live_inning_bowling_card', locals: { inning: inning } %>
+  </div>
+<% end%>
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>

@@ -1,54 +1,32 @@
-<h1>LiveScore</h1>
-<div style="float:right;"><%= link_to 'Add Notifications', add_notifications_match_path(@match) %></div>
-<h4><%= @match.recent? ? 'Result:' : 'Status:' %></h4><p id="live-match-status" data-match-id="<%= @match.id %>"><%= @match_data["match_result"] %></p>
-<table>
-  <thead>
-    <tr id="teams">
-      <th id="inning1-team" class="inning1-score" style="display: none"></th>
-      <th id="inning2-team" class="inning2-score" style="display: none"></th>
-      <th id="inning3-team" class="inning3-score" style="display: none"></th>
-      <th id="inning4-team" class="inning4-score" style="display: none"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr id="score">
-      <td id="inning1-team-score" class="inning1-score" style="display: none"></td>
-      <td id="inning2-team-score" class="inning2-score" style="display: none"></td>
-      <td id="inning3-team-score" class="inning3-score" style="display: none"></td>
-      <td id="inning4-team-score" class="inning4-score" style="display: none"></td>
-    </tr>
-    <tr id="overs">
-      <td id="inning1-team-overs" class="inning1-score" style="display: none"></td>
-      <td id="inning2-team-overs" class="inning2-score" style="display: none"></td>
-      <td id="inning3-team-overs" class="inning3-score" style="display: none"></td>
-      <td id="inning4-team-overs" class="inning4-score" style="display: none"></td>
-    </tr>
-  </tbody>
-</table>
-<br>
-<% @match_data["innings"].sort_by {|inning| inning["inning_number"]}.each do |inning| %>
-  <div id=<%= "inning-#{inning["inning_number"]}" %>>
-    <h3>Inning <%= inning["inning_number"] %> </h3>
-    <p class="inning-status"><%= inning["name"] %></p>
-    <%= render partial: 'live_inning_batting_card', locals: { inning: inning } %>
-    <%= render partial: 'live_inning_bowling_card', locals: { inning: inning } %>
+<div class="card">
+  <div class="card-header shadow" style="position: sticky; top: 0; z-index: 1; background-color: #eeeeee;">
+    <div class="row" >
+      <% @match_data["innings"].sort_by {|inning| inning["inning_number"]}.each  do |inning| %>
+        <div class="col" id="inning<%= inning["inning_number"] %>-score-header">
+          <div id="inning<%= inning["inning_number"] %>-team"><strong><%= inning["name"].split("Innings").first.squish %></strong></div>
+          <div id="inning<%= inning["inning_number"] %>-score"><%= "#{inning["runs"]}/#{inning["wickets"]}  (#{inning["overs"]})" %></div>
+        </div>
+      <% end %>
+    </div>
+    <div>
+      <%= link_to matches_path do %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        </svg>
+      <% end %>
+      <strong id="live-match-status" data-match-id="<%= @match.id %>"><%= @match.result %></strong>
+      <div style="float:right;"><%= link_to 'Add Notifications', add_notifications_match_path(@match) %></div>
+    </div>
   </div>
-<% end%>
-
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
+  <div class="card-body" style="padding: 0">
+    <div class="score-body" style="padding: 10px">
+      <% @match_data["innings"].sort_by {|inning| inning["inning_number"]}.each do |inning| %>
+        <div id=<%= "inning-#{inning["inning_number"]}" %>>
+          <div class="text-center bg-light shadow" style="padding: 5px;"><h6><%= "#{inning["name"].split("Innings").first} Inning #{inning["inning_number"]}" %></h6></div>
+          <div class="table-responsive"><%= render partial: 'live_inning_batting_card', locals: { inning: inning } %></div>
+          <div class="table-responsive"><%= render partial: 'live_inning_bowling_card', locals: { inning: inning } %></div>
+        </div>
+      <% end%>
+    </div>
+  </div>
+</div>

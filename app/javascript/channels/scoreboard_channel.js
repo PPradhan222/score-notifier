@@ -18,7 +18,7 @@ $(document).on('turbolinks:load', function () {
       data.innings.forEach(this.fill_innings);
     },
 
-    fill_innings(inning) {;
+    fill_innings(inning) {
       var $inning_element = $("#inning-"+inning["inning_number"]);
       $inning_element.children("p.inning-status").text(inning["name"]);
       var inning_number = inning["inning_number"];
@@ -26,6 +26,11 @@ $(document).on('turbolinks:load', function () {
       $("#inning"+inning_number+"-team").text(inning["name"].split("Innings")[0].trim());
       $("#inning"+inning_number+"-team-score").text(inning["runs"]+"/"+inning["wickets"]);
       $("#inning"+inning_number+"-team-overs").text(inning["overs"]);
+      // new template live score header
+      var $inning_score_header = $("#inning"+inning_number+"-score-header");
+      $inning_score_header.children("#inning"+inning_number+"-team").text(inning["name"].split("Innings")[0].trim());
+      $inning_score_header.children("#inning"+inning_number+"-score").text(inning["runs"]+"/"+inning["wickets"]+" ("+inning["overs"]+") ");
+      
       inning["batting_card"].forEach((batsman_data) => {
         var $ = jQuery.noConflict();
         var $batsman_row_element = $(".batsman-data[data-batsman-id='"+batsman_data["profile_url"]+"']");
