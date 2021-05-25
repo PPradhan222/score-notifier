@@ -14,8 +14,9 @@
           <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
         </svg>
       <% end %>
-      <strong id="live-match-status" data-match-id="<%= @match.id %>"><%= @match.result %></strong>
+      <strong id="add-notifications-match-status" data-match-id="<%= @match.id %>"><%= @match_data["match_result"] %></strong>
       <div style="float:right;">
+        <button type="button" class="btn btn-dark btn-sm submit-notification-btn">Submit</button>
         <%= link_to add_notifications_match_path(@match), role: 'button', class: 'btn btn-secondary btn-sm rounded-circle' do %>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell shadow" viewBox="0 0 16 16">
             <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
@@ -26,13 +27,19 @@
   </div>
   <div class="card-body" style="padding: 0">
     <div class="score-body" style="padding: 10px">
-      <% @match_data["innings"].sort_by {|inning| inning["inning_number"]}.each do |inning| %>
-        <div id=<%= "inning-#{inning["inning_number"]}" %>>
-          <div class="text-center bg-light shadow" style="padding: 5px;"><h6><%= "#{inning["name"].split("Innings").first} Inning #{inning["inning_number"]}" %></h6></div>
-          <div class="table-responsive"><%= render partial: 'live_inning_batting_card', locals: { inning: inning } %></div>
-          <div class="table-responsive"><%= render partial: 'live_inning_bowling_card', locals: { inning: inning } %></div>
-        </div>
-      <% end%>
+      <%= form_with url: create_notifications_match_path(@match), method: :post, class: "match-notifications-form" do |form| %>
+        <%= form.submit 'Submit Notification', class: "match-notifications-submit" %>
+        <% @match_data["innings"].sort_by {|inning| inning["inning_number"]}.each do |inning| %>
+          <div id=<%= "inning-#{inning["inning_number"]}" %>>
+            <div class="text-center bg-light shadow" style="padding: 5px;"><h6><%= "#{inning["name"].split("Innings").first} Inning #{inning["inning_number"]}" %></h6></div>
+            <div class="table-responsive"><%= render partial: 'notification_batting_card', locals: { inning: inning, form: form, innings_count: @match_data["innings"].length } %></div>
+            <div class="table-responsive"><%= render partial: 'notification_bowling_card', locals: { inning: inning, form: form, innings_count: @match_data["innings"].length } %></div>
+          </div>
+        <% end %>
+        <%= form.hidden_field :user_endpoint %>
+        <%= form.hidden_field :user_p256dh %>
+        <%= form.hidden_field :user_auth %>
+      <% end %>
     </div>
   </div>
 </div>

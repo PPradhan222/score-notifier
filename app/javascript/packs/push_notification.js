@@ -1,7 +1,7 @@
 var toUint8Array = require('urlb64touint8array');
 
 $(document).on('turbolinks:load',() => {
-  $(".match-notifications-submit").click(() => {
+  $(".submit-notification-btn").click(() => {
     event.preventDefault();
     checkPermission();
   });
@@ -72,8 +72,8 @@ function subscribeUser() {
 }
 
 function updateDatabase(subscription_object) {
-  var formData = $(".match-notifications-form").serializeArray();
-  var match_id = $("#add-notifications-match-status").attr("data-match-id");
+  // var formData = $(".match-notifications-form").serializeArray();
+  // var match_id = $("#add-notifications-match-status").attr("data-match-id");
   subscription_object = subscription_object.toJSON();
   $("#user_endpoint").val(subscription_object?.endpoint);
   $("#user_p256dh").val(subscription_object?.keys?.p256dh);
