@@ -21,6 +21,12 @@ module WebScrapper
           url = "https://www.cricbuzz.com/live-cricket-scorecard/" + match.web_match_url
           UpdateScorecardWorker.perform_async(url, match.id)
         end
+        next if match.recent?
+        if match.test?
+          match.recent! if match.date_time.before?(Time.now - 5.day)
+        else
+          match.recent! if match.date_time.before?(Time.now - 1.day)
+        end
       end
     end
 
