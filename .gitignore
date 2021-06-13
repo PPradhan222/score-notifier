@@ -26,7 +26,6 @@
 .byebug_history
 
 .env
-/public/service-worker.js
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
