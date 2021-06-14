@@ -55,6 +55,9 @@ Room for improvement:
 
 - Currently, the data related to matches including live scores is scrapped from an online cricket score application, which makes the system unreliable and slow. So, I think it would be better to have a reliable 3rd party API for the scores.
 
+- As of now, live scores are displayed in real time through websocket(which is a bidirectional connection), but in displaying live scores we do not need an open connection from the client side, and the current websocket took a lot of tcp acks which is not required. So, I am thinking to replace websockets with server sent events(in which only the server will send the real time data) to display live scores.
+
 To do:
 - Add condition to allow one active milestone moment per player in a match.
 - Store milestone moments of matches in Redis instead of the database.
+- Make it a progressive web app.
